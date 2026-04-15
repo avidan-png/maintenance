@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 1 — Design Revolut</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0a0a0f;
+    color: #f1f1f3;
+    font-family: 'Inter', -apple-system, sans-serif;
+    padding: 32px;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  .page-header { margin-bottom: 36px; }
+  .page-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #fff; margin-bottom: 4px; }
+  .page-header p { font-size: 13px; color: #555568; font-weight: 400; }
+
+  .section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: #3d3d5c;
+    margin: 32px 0 14px;
+  }
+
+  /* IMPORT CARDS */
+  .import-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .import-card {
+    background: #111118;
+    border: 1px solid #1c1c28;
+    border-radius: 16px;
+    padding: 22px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: border-color 0.15s;
+  }
+  .import-card.new { border-color: #1a3a2a; }
+  .import-card-icon {
+    width: 40px; height: 40px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .icon-excel { background: #0d2b1a; }
+  .icon-pdf { background: #0d1a2b; }
+  .import-card-body h4 {
+    font-size: 14px; font-weight: 600; color: #f1f1f3; margin-bottom: 4px;
+  }
+  .import-card-body p { font-size: 12px; color: #555568; line-height: 1.6; }
+  .pill {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 20px; margin-top: 10px;
+  }
+  .pill-green { background: #0d2b1a; color: #34d399; }
+  .pill-blue { background: #0d1a2b; color: #60a5fa; }
+
+  /* MAPPING */
+  .mapping-grid {
+    display: grid;
+    grid-template-columns: 1fr 20px 1fr 1fr;
+    gap: 0;
+    background: #111118;
+    border: 1px solid #1c1c28;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .mapping-header {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #3d3d5c;
+    padding: 12px 16px; border-bottom: 1px solid #1c1c28;
+    background: #0e0e17;
+  }
+  .mapping-cell {
+    padding: 10px 16px;
+    border-bottom: 1px solid #111118;
+    display: flex; align-items: center;
+    font-size: 12px;
+  }
+  .mapping-row:last-child .mapping-cell { border-bottom: none; }
+  .mapping-row { display: contents; }
+  .mapping-row:hover .mapping-cell { background: #0f0f1a; }
+  .mono { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px; }
+  .c-green { color: #34d399; }
+  .c-purple { color: #a78bfa; }
+  .c-amber { color: #fbbf24; }
+  .c-muted { color: #3d3d5c; font-size: 18px; }
+  .c-dim { color: #444460; font-size: 11px; }
+  .mapping-new-row .mapping-cell { background: #0d1a0d; }
+
+  /* PREAVIS */
+  .preavis-bar {
+    background: #111118;
+    border: 1px solid #1c1c28;
+    border-radius: 12px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .preavis-bar label { font-size: 12px; color: #777790; font-weight: 500; white-space: nowrap; }
+  .fake-select {
+    background: #1a1a28; border: 1px solid #2a2a40;
+    border-radius: 8px; padding: 6px 12px; font-size: 12px;
+    color: #f1f1f3; font-weight: 600; font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; gap: 8px; cursor: pointer;
+  }
+  .fake-select::after { content: '⌄'; color: #555568; font-size: 14px; }
+  .preavis-note { font-size: 11px; color: #3d3d5c; margin-left: auto; }
+
+  /* TABLE */
+  .table-wrap {
+    background: #111118;
+    border: 1px solid #1c1c28;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    padding: 12px 16px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #3d3d5c;
+    text-align: left; border-bottom: 1px solid #1c1c28;
+    background: #0e0e17; white-space: nowrap;
+  }
+  thead th.th-new { color: #34d399; }
+  tbody tr { border-bottom: 1px solid #0f0f18; transition: background 0.1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #0f0f1a; }
+  td { padding: 13px 16px; font-size: 12px; white-space: nowrap; }
+  td.td-muted { color: #555568; }
+  td.td-bold { font-weight: 600; color: #f1f1f3; }
+
+  .source-badge {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 6px;
+  }
+  .source-monga { background: #0d2b1a; color: #34d399; }
+  .source-ext { background: #0d1a2b; color: #60a5fa; }
+
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 600;
+    padding: 4px 10px; border-radius: 20px;
+  }
+  .s-ok { background: #0d2b1a; color: #34d399; }
+  .s-warn { background: #2b1e0d; color: #fbbf24; }
+  .s-danger { background: #2b0d0d; color: #f87171; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .dot-ok { background: #34d399; }
+  .dot-warn { background: #fbbf24; }
+  .dot-danger { background: #f87171; }
+
+  .date-ok { color: #34d399; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .date-warn { color: #fbbf24; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .date-danger { color: #f87171; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .date-muted { color: #555568; font-variant-numeric: tabular-nums; }
+
+  .tag-new {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+    background: #0d2b1a; color: #34d399;
+    padding: 2px 6px; border-radius: 4px; margin-left: 6px;
+    vertical-align: middle; text-transform: uppercase;
+  }
+
+  /* LEGEND */
+  .legend { display: flex; gap: 20px; margin-top: 16px; }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #3d3d5c; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Sprint 1 · Import &amp; Dénonciation</h1>
+  <p>Design des nouvelles fonctionnalités à intégrer dans /maintenance-contracts</p>
+</div>
+
+<!-- IMPORT -->
+<div class="section-label">01 · Import</div>
+<div class="import-row">
+  <div class="import-card new">
+    <div class="import-card-icon icon-excel">📊</div>
+    <div class="import-card-body">
+      <h4>Tableau récap Excel</h4>
+      <p>Multi-feuilles (.xlsx / .xls)<br>Mapping automatique des colonnes<br>Toutes propriétés en un seul import</p>
+      <span class="pill pill-green">Nouveau · Sprint 1</span>
+    </div>
+  </div>
+  <div class="import-card">
+    <div class="import-card-icon icon-pdf">📄</div>
+    <div class="import-card-body">
+      <h4>Contrat PDF</h4>
+      <p>Monga ou externe<br>Extraction par IA<br>Validation avant enregistrement</p>
+      <span class="pill pill-blue">Existant</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAPPING -->
+<div class="section-label">02 · Mapping colonnes Excel → Monga</div>
+<div class="mapping-grid">
+  <div class="mapping-header">Colonne Excel</div>
+  <div class="mapping-header"></div>
+  <div class="mapping-header">Champ Monga</div>
+  <div class="mapping-header">Note</div>
+
+  <div class="mapping-row">
+    <div class="mapping-cell"><span class="mono c-green">Propriété</span></div>
+    <div class="mapping-cell c-muted">→</div>
+    <div class="mapping-cell"><span class="mono c-purple">id_propriete</span></div>
+    <div class="mapping-cell c-dim">Identifiant du lot</div>
+  </div>
+  <div class="mapping-row">
+    <div class="mapping-cell"><span class="mono c-green">Nature des locaux</span></div>
+    <div class="mapping-cell c-muted">→</div>
+    <div class="mapping-cell"><span class="mono c-purple">type_bien</span></div>
+    <div class="mapping-cell c-dim">BUREAUX, COMMERCE, RETAIL PARK…</div>
+  </div>
+  <div class="mapping-row">
+    <div class="mapping-cell"><span class="mono c-green">Adresse 1 + CP + Ville</span></div>
+    <div class="mapping-cell c-muted">→</div>
+    <div class="mapping-cell"><span class="mono c-purple">adresse</span></div>
+    <div class="mapping-cell c-dim">Concaténées automatiquement</div>
+  </div>
+  <div class="mapping-row">
+    <div class="mapping-cell"><span class="mono c-green">Libellé contrat</span></div>
+    <div class="mapping-cell c-muted">→</div>
+    <div class="mapping-cell"><span class="mono c-purple">prestation</span></div>
+    <div class="mapping-cell c-dim">Type détecté (CVC, Toiture, Nettoyage…)</div>
+  </div>
+  <div class="mapping-row">
+    <div class="mapping-cell"><span class="mono c-green">Libellé fournisseur</span></div>
+    <div class="mapping-cell c-muted">→</div>
+    <div class="mapping-cell"><span class="mono c-purple">prestataire</span></div>
+    <div class="mapping-cell c-dim">Enrichissement adresse · Sprint 3</div>
+  </div>
+  <div class="mapping-row">
+    <div class="mapping-cell"><span class="mono c-green">Montant HT / an</span></div>
+    <div class="mapping-cell c-muted">→</div>
+    <div class="mapping-cell"><span class="mono c-purple">montant</span></div>
+    <div class="mapping-cell c-dim">€ HT annuel</div>
+  </div>
+  <div class="mapping-row">
+    <div class="mapping-cell"><span class="mono c-green">Date fin renouv.</span></div>
+    <div class="mapping-cell c-muted">→</div>
+    <div class="mapping-cell"><span class="mono c-purple">date_fin</span></div>
+    <div class="mapping-cell c-dim"></div>
+  </div>
+  <div class="mapping-row mapping-new-row">
+    <div class="mapping-cell"><span class="mono c-amber">— calculé</span></div>
+    <div class="mapping-cell c-muted">→</div>
+    <div class="mapping-cell"><span class="mono c-amber">date_denonciation</span></div>
+    <div class="mapping-cell" style="color:#fbbf24; font-weight:600; font-size:11px;">date_fin − délai préavis &nbsp;✦ NOUVEAU</div>
+  </div>
+</div>
+
+<!-- PREAVIS -->
+<div class="section-label">03 · Délai de préavis</div>
+<div class="preavis-bar">
+  <label>Délai par défaut</label>
+  <div class="fake-select">3 mois</div>
+  <span class="preavis-note">Modifiable par contrat · Appliqué à l'import sauf surcharge manuelle</span>
+</div>
+
+<!-- TABLE -->
+<div class="section-label">04 · Tableau enrichi</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Source</th>
+        <th>Adresse</th>
+        <th>Prestation</th>
+        <th>Prestataire</th>
+        <th>Montant</th>
+        <th>Date de fin</th>
+        <th class="th-new">Date dénonciation <span class="tag-new">New</span></th>
+        <th class="th-new">Statut <span class="tag-new">New</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="source-badge source-ext">Externe</span></td>
+        <td class="td-muted">285 Av. Père Léonid, 82000 Montauban</td>
+        <td class="td-muted">Entretien toiture</td>
+        <td class="td-muted">Midi Aquitaine Étanchéité</td>
+        <td class="td-bold">1 200 €</td>
+        <td class="date-muted">31/12/2025</td>
+        <td class="date-danger">30/09/2025</td>
+        <td><span class="status-pill s-danger"><span class="dot dot-danger"></span>Reconduit</span></td>
+      </tr>
+      <tr>
+        <td><span class="source-badge source-ext">Externe</span></td>
+        <td class="td-muted">ZAC Tube Retortier, 13800 Istres</td>
+        <td class="td-muted">Espaces verts</td>
+        <td class="td-muted">Plagnol Espaces Verts</td>
+        <td class="td-bold">6 960 €</td>
+        <td class="date-muted">31/12/2026</td>
+        <td class="date-warn">30/09/2026</td>
+        <td><span class="status-pill s-warn"><span class="dot dot-warn"></span>Dans 5 mois</span></td>
+      </tr>
+      <tr>
+        <td><span class="source-badge source-monga">Monga</span></td>
+        <td class="td-muted">11 Quai Lamennais, 35000 Rennes</td>
+        <td class="td-muted">Nettoyage intérieur</td>
+        <td class="td-muted">Rennes Clair Nettoyage</td>
+        <td class="td-bold">19 800 €</td>
+        <td class="date-muted">31/12/2026</td>
+        <td class="date-ok">30/09/2026</td>
+        <td><span class="status-pill s-ok"><span class="dot dot-ok"></span>OK · 5 mois</span></td>
+      </tr>
+      <tr>
+        <td><span class="source-badge source-monga">Monga</span></td>
+        <td class="td-muted">Zone Petit Coudray, 72610 Arconnay</td>
+        <td class="td-muted">Entretien parking</td>
+        <td class="td-muted">Netto-Decor</td>
+        <td class="td-bold">12 260 €</td>
+        <td class="date-muted">31/03/2026</td>
+        <td class="date-danger">31/12/2025</td>
+        <td><span class="status-pill s-danger"><span class="dot dot-danger"></span>Reconduit</span></td>
+      </tr>
+      <tr>
+        <td><span class="source-badge source-ext">Externe</span></td>
+        <td class="td-muted">Palais des Congrès, 61600 Antibes</td>
+        <td class="td-muted">Maintenance P2/P3</td>
+        <td class="td-muted">Engie Énergie Services</td>
+        <td class="td-bold">475 590 €</td>
+        <td class="date-muted">31/12/2026</td>
+        <td class="date-warn">30/09/2026</td>
+        <td><span class="status-pill s-warn"><span class="dot dot-warn"></span>Dans 5 mois</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="dot dot-ok" style="width:7px;height:7px"></span>Plus de 6 mois — aucune action</div>
+  <div class="legend-item"><span class="dot dot-warn" style="width:7px;height:7px"></span>Moins de 6 mois — à surveiller</div>
+  <div class="legend-item"><span class="dot dot-danger" style="width:7px;height:7px"></span>Délai dépassé — contrat reconduit tacitement</div>
+</div>
+
+</body>
+</html>

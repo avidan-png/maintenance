@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 1 — Design</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0d14; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 24px; font-size: 14px; }
+  h2 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .subtitle { color: #64748b; font-size: 13px; margin-bottom: 24px; }
+  .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #7c8cf8; margin: 24px 0 12px; }
+
+  /* IMPORT ZONE */
+  .import-zone {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .import-card {
+    border: 1.5px dashed #2d3748;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: border-color 0.2s;
+    background: #111827;
+  }
+  .import-card.excel { border-color: #22c55e44; background: #052e1644; }
+  .import-card.excel .icon { color: #22c55e; }
+  .import-card.pdf { border-color: #3b82f644; background: #0c1a3044; }
+  .import-card.pdf .icon { color: #3b82f6; }
+  .import-card .icon { font-size: 28px; margin-bottom: 8px; }
+  .import-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .import-card p { font-size: 11px; color: #64748b; line-height: 1.5; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-new { background: #22c55e22; color: #22c55e; border: 1px solid #22c55e44; }
+  .badge-existing { background: #3b82f622; color: #3b82f6; border: 1px solid #3b82f644; }
+
+  /* MAPPING */
+  .mapping-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .mapping-table th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #64748b; padding: 8px 12px; text-align: left; border-bottom: 1px solid #1e293b; }
+  .mapping-table td { padding: 8px 12px; border-bottom: 1px solid #1a2030; font-size: 12px; }
+  .mapping-table tr:last-child td { border-bottom: none; }
+  .col-excel { color: #22c55e; font-family: monospace; font-size: 11px; }
+  .col-monga { color: #a78bfa; font-family: monospace; font-size: 11px; }
+  .col-calc { color: #f59e0b; font-family: monospace; font-size: 11px; }
+  .arrow { color: #475569; }
+
+  /* TABLE PREVIEW */
+  .table-preview { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .table-preview th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #475569; padding: 8px 10px; text-align: left; border-bottom: 1px solid #1e293b; white-space: nowrap; }
+  .table-preview td { padding: 9px 10px; border-bottom: 1px solid #111827; white-space: nowrap; }
+  .table-preview tr:hover td { background: #0f172a; }
+  .col-new { background: #0a1f0a; }
+  .col-new th, .col-new-cell { color: #22c55e !important; }
+
+  .status { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 20px; }
+  .status-ok { background: #052e1644; color: #22c55e; }
+  .status-warn { background: #3d200044; color: #f59e0b; }
+  .status-danger { background: #2d000044; color: #ef4444; }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  .dot-ok { background: #22c55e; }
+  .dot-warn { background: #f59e0b; }
+  .dot-danger { background: #ef4444; }
+
+  .tag-new { font-size: 9px; font-weight: 700; background: #22c55e22; color: #22c55e; border: 1px solid #22c55e44; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+
+  .prestataire { color: #94a3b8; }
+  .montant { color: #e2e8f0; font-weight: 600; }
+  .date-fin { color: #64748b; }
+  .date-denonciation-ok { color: #22c55e; font-weight: 600; }
+  .date-denonciation-warn { color: #f59e0b; font-weight: 700; }
+  .date-denonciation-danger { color: #ef4444; font-weight: 700; }
+
+  .preavis-config {
+    display: flex; align-items: center; gap: 10px;
+    background: #111827; border: 1px solid #1e293b; border-radius: 8px; padding: 12px 16px;
+    margin-bottom: 16px; font-size: 12px;
+  }
+  .preavis-config label { color: #64748b; }
+  .preavis-config select { background: #1e293b; border: 1px solid #334155; color: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-size: 12px; }
+  .preavis-config .note { color: #475569; font-size: 11px; margin-left: auto; }
+
+  .legend { display: flex; gap: 16px; margin-top: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #64748b; }
+</style>
+</head>
+<body>
+
+<h2>Sprint 1 — Import Excel + Date de dénonciation</h2>
+<p class="subtitle">Design des 2 fonctionnalités du Sprint 1 — revue section par section</p>
+
+<!-- IMPORT -->
+<div class="section-title">1 · Zone d'import enrichie</div>
+<div class="import-zone">
+  <div class="import-card excel">
+    <div class="icon">📊</div>
+    <h4>Importer un tableau récap</h4>
+    <p>Excel multi-feuilles (.xlsx / .xls)<br>Mapping automatique des colonnes<br>Support multi-propriétés en une fois</p>
+    <span class="badge badge-new">Nouveau · Sprint 1</span>
+  </div>
+  <div class="import-card pdf">
+    <div class="icon">📄</div>
+    <h4>Importer un contrat PDF</h4>
+    <p>Contrat Monga ou externe<br>Extraction automatique par IA<br>Validation avant enregistrement</p>
+    <span class="badge badge-existing">Existant</span>
+  </div>
+</div>
+
+<!-- MAPPING COLONNES -->
+<div class="section-title">2 · Mapping colonnes Excel → Monga</div>
+<table class="mapping-table">
+  <tr>
+    <th>Colonne Excel client</th>
+    <th></th>
+    <th>Champ Monga</th>
+    <th>Note</th>
+  </tr>
+  <tr><td class="col-excel">Propriété</td><td class="arrow">→</td><td class="col-monga">id_propriete</td><td style="color:#475569">Identifiant du lot</td></tr>
+  <tr><td class="col-excel">Nature des locaux</td><td class="arrow">→</td><td class="col-monga">type_bien</td><td style="color:#475569">BUREAUX, COMMERCE…</td></tr>
+  <tr><td class="col-excel">Adresse 1 + Adresse 2 + CP + Ville</td><td class="arrow">→</td><td class="col-monga">adresse</td><td style="color:#475569">Concaténées</td></tr>
+  <tr><td class="col-excel">Libellé contrat</td><td class="arrow">→</td><td class="col-monga">prestation</td><td style="color:#475569">Type auto-détecté (Toiture, CVC…)</td></tr>
+  <tr><td class="col-excel">Libellé fournisseur</td><td class="arrow">→</td><td class="col-monga">prestataire</td><td style="color:#475569">Enrichissement adresse Sprint 3</td></tr>
+  <tr><td class="col-excel">Montant HT / an</td><td class="arrow">→</td><td class="col-monga">montant</td><td style="color:#475569">€ HT annuel</td></tr>
+  <tr><td class="col-excel">Date début renouv.</td><td class="arrow">→</td><td class="col-monga">date_debut</td><td style="color:#475569"></td></tr>
+  <tr><td class="col-excel">Date fin renouv.</td><td class="arrow">→</td><td class="col-monga">date_fin</td><td style="color:#475569"></td></tr>
+  <tr><td class="col-calc">— (calculé)</td><td class="arrow">→</td><td class="col-calc">date_denonciation</td><td style="color:#f59e0b; font-weight:600">Date fin − délai préavis ✦ NOUVEAU</td></tr>
+</table>
+
+<!-- PREAVIS CONFIG -->
+<div class="section-title">3 · Délai de préavis configurable</div>
+<div class="preavis-config">
+  <label>Délai de préavis par défaut</label>
+  <select><option selected>3 mois</option><option>1 mois</option><option>2 mois</option><option>6 mois</option></select>
+  <span class="note">Modifiable contrat par contrat · Appliqué à tous les imports sauf surcharge manuelle</span>
+</div>
+
+<!-- TABLE PREVIEW -->
+<div class="section-title">4 · Aperçu du tableau enrichi (nouvelles colonnes)</div>
+<div style="overflow-x:auto;">
+<table class="table-preview">
+  <thead>
+    <tr>
+      <th>SOURCE</th>
+      <th>ADRESSE</th>
+      <th>PRESTATION</th>
+      <th>PRESTATAIRE</th>
+      <th>MONTANT</th>
+      <th>DATE DE FIN</th>
+      <th style="color:#22c55e">DATE DÉNONCIATION <span class="tag-new">NEW</span></th>
+      <th style="color:#22c55e">STATUT DÉNONCIATION <span class="tag-new">NEW</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span style="background:#1a3a1a; color:#22c55e; padding:2px 8px; border-radius:4px; font-size:10px; font-weight:700;">MONGA</span></td>
+      <td>285 AV DU PÈRE LÉONID CHROL, 82000 Montauban</td>
+      <td class="prestataire">Entretien toiture</td>
+      <td class="prestataire">MIDI AQUITAINE ÉTANCHÉITÉ</td>
+      <td class="montant">1 200 €</td>
+      <td class="date-fin">31/12/2025</td>
+      <td class="date-denonciation-danger">30/09/2025</td>
+      <td><span class="status status-danger"><span class="status-dot dot-danger"></span>Délai dépassé</span></td>
+    </tr>
+    <tr>
+      <td><span style="background:#1a2a3a; color:#3b82f6; padding:2px 8px; border-radius:4px; font-size:10px; font-weight:700;">EXTERNE</span></td>
+      <td>ZAC DU TUBE RETORTIER, 13800 Istres</td>
+      <td class="prestataire">Espaces verts</td>
+      <td class="prestataire">PLAGNOL ESPACES VERTS</td>
+      <td class="montant">6 960 €</td>
+      <td class="date-fin">31/12/2026</td>
+      <td class="date-denonciation-warn">30/09/2026</td>
+      <td><span class="status status-warn"><span class="status-dot dot-warn"></span>Dans 5 mois</span></td>
+    </tr>
+    <tr>
+      <td><span style="background:#1a2a3a; color:#3b82f6; padding:2px 8px; border-radius:4px; font-size:10px; font-weight:700;">EXTERNE</span></td>
+      <td>11 QUAI LAMENNAIS, 35000 Rennes</td>
+      <td class="prestataire">Nettoyage intérieur</td>
+      <td class="prestataire">RENNES CLAIR NETTOYAGE</td>
+      <td class="montant">19 800 €</td>
+      <td class="date-fin">31/12/2026</td>
+      <td class="date-denonciation-ok">30/09/2026</td>
+      <td><span class="status status-ok"><span class="status-dot dot-ok"></span>OK · 5 mois</span></td>
+    </tr>
+    <tr>
+      <td><span style="background:#1a3a1a; color:#22c55e; padding:2px 8px; border-radius:4px; font-size:10px; font-weight:700;">MONGA</span></td>
+      <td>ZONE DU PETIT COUDRAY, 72610 Arconnay</td>
+      <td class="prestataire">Entretien parking</td>
+      <td class="prestataire">NETTO-DECOR</td>
+      <td class="montant">12 260 €</td>
+      <td class="date-fin">31/03/2026</td>
+      <td class="date-denonciation-danger">31/12/2025</td>
+      <td><span class="status status-danger"><span class="status-dot dot-danger"></span>Délai dépassé</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="status-dot dot-danger" style="width:8px;height:8px"></span>Délai de dénonciation dépassé — contrat reconduit</div>
+  <div class="legend-item"><span class="status-dot dot-warn" style="width:8px;height:8px"></span>Moins de 6 mois — à surveiller</div>
+  <div class="legend-item"><span class="status-dot dot-ok" style="width:8px;height:8px"></span>Plus de 6 mois — pas d'urgence</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MONGA × IAD — Prototype v3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#060d1a; font-family:'Inter',-apple-system,sans-serif; color:#fff; padding:48px 0 64px; }
+:root {
+  --o:#ff7832; --g:#d4af37;
+  --bg:#0d1f4e; --bgd:#08162e;
+  --muted:rgba(255,255,255,0.38);
+  --mid:rgba(255,255,255,0.62);
+  --border:rgba(255,255,255,0.08);
+  --card:rgba(255,255,255,0.04);
+}
+.slide { width:960px; height:540px; margin:0 auto 18px; position:relative; overflow:hidden; background:var(--bg); border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.05); }
+.lbl { width:960px; margin:0 auto 40px; font-size:10px; font-weight:700; color:rgba(255,255,255,0.18); letter-spacing:2.5px; text-transform:uppercase; display:flex; align-items:center; gap:10px; }
+.lbl::before { content:''; display:block; width:14px; height:1px; background:rgba(255,255,255,0.12); }
+.ey { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; }
+.ey.o { color:var(--o); } .ey.m { color:var(--muted); }
+
+/* ═══ S1 COVER ═══ */
+#s1 { background:linear-gradient(135deg,#071429 0%,#0d1f4e 60%,#091832 100%); }
+#s1 .gr { position:absolute; top:-120px; right:-80px; width:480px; height:480px; background:radial-gradient(circle,rgba(255,120,50,.13) 0%,transparent 65%); pointer-events:none; }
+#s1 .gl { position:absolute; bottom:-80px; left:-40px; width:320px; height:320px; background:radial-gradient(circle,rgba(30,80,200,.09) 0%,transparent 65%); pointer-events:none; }
+#s1 .gd { position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px); background-size:48px 48px; }
+#s1 .in { position:relative; z-index:2; padding:48px 60px; height:100%; display:flex; flex-direction:column; justify-content:space-between; }
+#s1 .top { display:flex; justify-content:space-between; align-items:center; }
+#s1 .logo { font-size:20px; font-weight:900; }
+#s1 .logo span { color:var(--o); }
+#s1 .iad { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:7px 14px; }
+#s1 .iad .f { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:2px; font-weight:600; }
+#s1 .iad .n { font-size:13px; font-weight:800; color:var(--mid); }
+#s1 h1 { font-size:46px; font-weight:900; line-height:1.04; letter-spacing:-1.5px; color:#fff; margin:12px 0 16px; }
+#s1 h1 em { font-style:normal; color:var(--o); }
+#s1 .bar { width:40px; height:3px; background:var(--o); border-radius:2px; margin-bottom:15px; }
+#s1 .tag { font-size:15px; color:var(--mid); line-height:1.55; }
+#s1 .bot { display:flex; justify-content:space-between; align-items:flex-end; }
+#s1 .pres { font-size:12px; color:var(--muted); line-height:1.7; }
+#s1 .pres b { color:var(--mid); font-weight:700; font-size:13px; display:block; margin-bottom:1px; }
+#s1 .conf { font-size:10px; font-weight:600; color:var(--muted); letter-spacing:1.5px; text-align:right; line-height:1.9; }
+
+/* ═══ S2 PROBLÈME ═══ */
+#s2 { background:#08162e; }
+#s2 .at { position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--o),transparent 60%); }
+#s2 .gh { position:absolute; right:-15px; top:-25px; font-size:260px; font-weight:900; letter-spacing:-8px; line-height:1; color:rgba(255,120,50,.042); pointer-events:none; user-select:none; }
+#s2 .in { position:relative; z-index:2; padding:54px 64px; height:100%; display:flex; flex-direction:column; justify-content:center; gap:22px; }
+#s2 .sr { display:flex; align-items:baseline; gap:22px; }
+#s2 .big { font-size:100px; font-weight:900; color:var(--o); line-height:1; letter-spacing:-3px; }
+#s2 .desc { font-size:21px; color:var(--mid); font-weight:500; line-height:1.35; max-width:380px; }
+#s2 .rule { width:44px; height:2px; background:rgba(255,255,255,0.1); }
+#s2 .cr { display:flex; align-items:center; gap:14px; }
+#s2 .ct { font-size:28px; font-weight:800; color:#fff; letter-spacing:-0.5px; }
+#s2 .cp { background:var(--o); color:#fff; border-radius:6px; padding:6px 14px; font-size:11px; font-weight:800; letter-spacing:1px; text-transform:uppercase; }
+
+/* ═══ S3 CHIFFRES ═══ */
+#s3 .lb { position:absolute; left:0; top:0; bottom:0; width:4px; background:linear-gradient(180deg,var(--o),var(--g)); }
+#s3 .in { position:relative; z-index:2; padding:40px 52px 40px 56px; height:100%; display:flex; flex-direction:column; gap:16px; }
+#s3 .top { display:flex; justify-content:space-between; align-items:center; }
+#s3 .gp { display:flex; align-items:center; gap:6px; background:rgba(212,175,55,.1); border:1px solid rgba(212,175,55,.25); border-radius:20px; padding:4px 12px; }
+#s3 .gp span { font-size:9px; font-weight:700; color:var(--g); letter-spacing:2px; text-transform:uppercase; }
+#s3 .fd { font-size:13px; color:var(--muted); line-height:1.5; }
+#s3 .fd b { color:rgba(255,255,255,.8); font-weight:600; }
+#s3 .kg { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; flex:1; }
+#s3 .kc { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:14px 16px; display:flex; flex-direction:column; justify-content:space-between; }
+#s3 .kc.h { background:rgba(255,120,50,.08); border-color:rgba(255,120,50,.22); }
+#s3 .kl { font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:2px; margin-bottom:6px; }
+#s3 .kv { font-size:30px; font-weight:900; color:#fff; letter-spacing:-1px; line-height:1; }
+#s3 .kc.h .kv { color:var(--o); }
+#s3 .ks { font-size:10px; color:var(--muted); margin-top:3px; line-height:1.35; }
+#s3 .ft { display:flex; align-items:center; gap:14px; border-top:1px solid var(--border); padding-top:12px; }
+#s3 .fl { font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:2px; }
+#s3 .fv { font-size:12px; color:var(--mid); font-weight:500; }
+
+/* ═══ S4 PROCESS ═══ */
+#s4 { background:#08162e; }
+#s4 .tb { position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--o),var(--g)); }
+#s4 .in { position:relative; z-index:2; padding:36px 48px 32px; height:100%; display:flex; flex-direction:column; gap:18px; }
+#s4 .hd { display:flex; justify-content:space-between; align-items:center; }
+#s4 h2 { font-size:19px; font-weight:900; color:#fff; letter-spacing:-0.3px; }
+#s4 .bx { display:flex; align-items:center; gap:8px; background:rgba(255,120,50,.1); border:1px solid rgba(255,120,50,.28); border-radius:20px; padding:5px 14px; }
+#s4 .bn { font-size:15px; font-weight:900; color:var(--o); }
+#s4 .bu { font-size:9px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:1px; }
+#s4 .st { display:flex; align-items:flex-start; gap:0; flex:1; position:relative; padding-top:6px; }
+#s4 .sp { flex:1; display:flex; flex-direction:column; align-items:center; position:relative; }
+#s4 .sp::after { content:''; position:absolute; top:18px; left:50%; right:-50%; height:2px; background:rgba(255,255,255,.07); z-index:0; }
+#s4 .sp:last-child::after { display:none; }
+#s4 .sp.d::after { background:linear-gradient(90deg,var(--o),rgba(255,120,50,.2)); }
+#s4 .ci { width:36px; height:36px; border-radius:50%; border:2px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; color:rgba(255,255,255,.3); position:relative; z-index:1; flex-shrink:0; margin-bottom:10px; }
+#s4 .sp.d .ci { background:var(--o); border-color:var(--o); color:#fff; }
+#s4 .stt { font-size:12px; font-weight:700; color:#fff; text-align:center; margin-bottom:4px; }
+#s4 .sp:not(.d) .stt { color:rgba(255,255,255,.42); }
+#s4 .ss { font-size:10px; color:var(--muted); text-align:center; line-height:1.4; }
+#s4 .no { display:flex; gap:6px; padding:9px 14px; background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:7px; }
+#s4 .ni { font-size:10px; color:var(--muted); display:flex; align-items:center; gap:5px; }
+#s4 .ni::before { content:'✓'; color:var(--o); font-weight:700; font-size:11px; }
+#s4 .ni+.ni { padding-left:14px; border-left:1px solid var(--border); }
+
+/* ═══ S5 RÉFÉRENCES ═══ */
+#s5 { background:linear-gradient(140deg,#081428 0%,#0d1f4e 100%); }
+#s5 .ab { position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--o),var(--g) 50%,transparent 100%); }
+#s5 .in { position:relative; z-index:2; padding:40px 52px; height:100%; display:flex; flex-direction:column; gap:16px; }
+#s5 h2 { font-size:24px; font-weight:900; letter-spacing:-0.5px; }
+#s5 .sub { font-size:12px; color:var(--muted); margin-top:3px; }
+#s5 .kr { display:flex; gap:0; }
+#s5 .ks2 { flex:1; padding:0 20px; border-right:1px solid var(--border); }
+#s5 .ks2:first-child { padding-left:0; }
+#s5 .ks2:last-child { border-right:none; }
+#s5 .kv2 { font-size:24px; font-weight:900; color:var(--o); letter-spacing:-0.5px; line-height:1; }
+#s5 .kv2.g { color:var(--g); }
+#s5 .kl2 { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:2px; margin-top:3px; }
+#s5 .ll { font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:3px; }
+#s5 .lg { display:flex; gap:10px; flex-wrap:wrap; align-items:stretch; }
+
+/* Logo card avec favicon réel + nom */
+#s5 .lc {
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:8px;
+  padding:10px 14px;
+  display:flex; align-items:center; gap:10px;
+  min-width:130px; height:52px;
+  position:relative; overflow:hidden;
+}
+#s5 .lc .ico {
+  width:28px; height:28px; border-radius:6px;
+  overflow:hidden; flex-shrink:0;
+  background:rgba(255,255,255,.08);
+  display:flex; align-items:center; justify-content:center;
+}
+#s5 .lc .ico img {
+  width:28px; height:28px;
+  object-fit:cover;
+  border-radius:4px;
+}
+/* fallback si image absente */
+#s5 .lc .ico .fb {
+  font-size:11px; font-weight:900; color:#fff;
+  display:none;
+}
+#s5 .lc .cn { font-size:11px; font-weight:600; color:rgba(255,255,255,.55); line-height:1.3; }
+#s5 .more { font-size:11px; color:rgba(255,255,255,.22); font-style:italic; }
+</style>
+</head>
+<body>
+
+<!-- ════ S1 COVER ════ -->
+<div class="lbl">01 · Cover</div>
+<div class="slide" id="s1">
+  <div class="gr"></div><div class="gl"></div><div class="gd"></div>
+  <div class="in">
+    <div class="top">
+      <div class="logo">MONGA<span>.</span></div>
+      <div class="iad">
+        <div class="f">Pour</div>
+        <div class="n">IAD France</div>
+      </div>
+    </div>
+    <div>
+      <div class="ey o">Présentation · Avril 2026</div>
+      <h1>La maintenance<br>multitechnique<br>pilotée par <em>l'IA.</em></h1>
+      <div class="bar"></div>
+      <div class="tag">La plateforme pour les professionnels<br>de l'immobilier — de l'incident à la clôture.</div>
+    </div>
+    <div class="bot">
+      <div class="pres"><b>Avidan Koubi</b>Co-fondateur & CEO, Groupe Monga<br>avidan@monga.io</div>
+      <div class="conf">CONFIDENTIEL<br>Avril 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S2 PROBLÈME ════ -->
+<div class="lbl">02 · Le problème</div>
+<div class="slide" id="s2">
+  <div class="at"></div><div class="gh">70</div>
+  <div class="in">
+    <div class="ey m">La réalité terrain</div>
+    <div class="sr">
+      <div class="big">50–70%</div>
+      <div class="desc">du temps d'un gestionnaire locatif absorbé par la gestion technique.</div>
+    </div>
+    <div class="rule"></div>
+    <div class="cr">
+      <div class="ct">Monga règle ça.</div>
+      <div class="cp">La solution →</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S3 CHIFFRES ════ -->
+<div class="lbl">03 · Monga en chiffres</div>
+<div class="slide" id="s3">
+  <div class="lb"></div>
+  <div class="in">
+    <div class="top">
+      <div class="ey m">Monga — 5 ans de terrain</div>
+      <div class="gp"><div style="width:5px;height:5px;border-radius:50%;background:var(--g);flex-shrink:0;"></div><span>#1 PropTech maintenance France</span></div>
+    </div>
+    <div class="fd">Né en 2020 d'un constat simple : <b>un locataire mal servi = un mandat perdu.</b></div>
+    <div class="kg">
+      <div class="kc h"><div class="kl">Clients actifs</div><div class="kv">324+</div><div class="ks">Professionnels de l'immobilier</div></div>
+      <div class="kc"><div class="kl">Surface pilotée</div><div class="kv">7,5M</div><div class="ks">m² tertiaire</div></div>
+      <div class="kc"><div class="kl">Réseau artisans</div><div class="kv">4 700+</div><div class="ks">Partenaires France entière</div></div>
+      <div class="kc"><div class="kl">Équipe</div><div class="kv">35</div><div class="ks">Collaborateurs, Paris</div></div>
+      <div class="kc h"><div class="kl">Attrition mandats</div><div class="kv" style="color:var(--g)">−32%</div><div class="ks">Baisse constatée 2025</div></div>
+      <div class="kc"><div class="kl">Modèle</div><div class="kv" style="font-size:20px;letter-spacing:0">SaaS</div><div class="ks">+ exécution asset-light</div></div>
+    </div>
+    <div class="ft">
+      <div class="fl">Fondateurs</div>
+      <div class="fv">Avidan Koubi (IB/RE) · Kevin Valensi (ex-Doctolib, Centrale Paris)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S4 PROCESS ════ -->
+<div class="lbl">04 · Process</div>
+<div class="slide" id="s4">
+  <div class="tb"></div>
+  <div class="in">
+    <div class="hd">
+      <h2>De l'incident à la clôture — automatiquement</h2>
+      <div class="bx"><div class="bn">&lt; 24h</div><div class="bu">délai moyen</div></div>
+    </div>
+    <div class="st">
+      <div class="sp d"><div class="ci">01</div><div class="stt">Déclaration</div><div class="ss">App ou<br>téléphone</div></div>
+      <div class="sp d"><div class="ci">02</div><div class="stt">Qualification</div><div class="ss">MonAI analyse<br>& catégorise</div></div>
+      <div class="sp d"><div class="ci">03</div><div class="stt">Arbitrage</div><div class="ss">Gestionnaire<br>valide en 1 clic</div></div>
+      <div class="sp d"><div class="ci">04</div><div class="stt">Dispatch</div><div class="ss">Meilleur artisan<br>sélectionné</div></div>
+      <div class="sp"><div class="ci">05</div><div class="stt">Devis</div><div class="ss">Validation<br>en 1 clic</div></div>
+      <div class="sp"><div class="ci">06</div><div class="stt">Clôture</div><div class="ss">Rapport +<br>KPI mis à jour</div></div>
+    </div>
+    <div class="no">
+      <div class="ni">Délai moyen ÷3 vs. manuel</div>
+      <div class="ni">0 relance artisan</div>
+      <div class="ni">100% traçable</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S5 RÉFÉRENCES ════ -->
+<div class="lbl">05 · Références clients</div>
+<div class="slide" id="s5">
+  <div class="ab"></div>
+  <div class="in">
+    <div>
+      <h2>Ils nous font confiance</h2>
+      <div class="sub">324+ professionnels — foncières, asset managers, property managers, institutionnels</div>
+    </div>
+    <div class="kr">
+      <div class="ks2"><div class="kv2">324+</div><div class="kl2">Clients actifs</div></div>
+      <div class="ks2"><div class="kv2">7,5M</div><div class="kl2">m² sous pilotage</div></div>
+      <div class="ks2"><div class="kv2">4 700+</div><div class="kl2">Artisans réseau</div></div>
+      <div class="ks2"><div class="kv2 g">−32%</div><div class="kl2">Attrition mandats</div></div>
+    </div>
+    <div class="ll">Références clients</div>
+    <div class="lg">
+
+      <div class="lc">
+        <div class="ico">
+          <img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://groupeduval.com&size=64"
+               onerror="this.style.display='none';this.parentElement.querySelector('.fb').style.display='flex'">
+          <div class="fb" style="display:none;">GD</div>
+        </div>
+        <div class="cn">Groupe<br>Duval</div>
+      </div>
+
+      <div class="lc">
+        <div class="ico">
+          <img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://aew.com&size=64"
+               onerror="this.style.display='none';this.parentElement.querySelector('.fb').style.display='flex'">
+          <div class="fb" style="display:none;">AE</div>
+        </div>
+        <div class="cn">AEW<br>Europe</div>
+      </div>
+
+      <div class="lc">
+        <div class="ico">
+          <img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://covea.fr&size=64"
+               onerror="this.style.display='none';this.parentElement.querySelector('.fb').style.display='flex'">
+          <div class="fb" style="display:none;">CV</div>
+        </div>
+        <div class="cn">Covéa<br>Immobilier</div>
+      </div>
+
+      <div class="lc">
+        <div class="ico">
+          <img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://moma-group.com&size=64"
+               onerror="this.style.display='none';this.parentElement.querySelector('.fb').style.display='flex'">
+          <div class="fb" style="display:none;">MG</div>
+        </div>
+        <div class="cn">Moma<br>Group</div>
+      </div>
+
+      <div class="lc">
+        <div class="ico">
+          <img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://sgl-immobilier.com&size=64"
+               onerror="this.style.display='none';this.parentElement.querySelector('.fb').style.display='flex'">
+          <div class="fb" style="display:none;">SG</div>
+        </div>
+        <div class="cn">SGL<br>Immobilier</div>
+      </div>
+
+      <div class="lc">
+        <div class="ico">
+          <img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://capture-am.com&size=64"
+               onerror="this.style.display='none';this.parentElement.querySelector('.fb').style.display='flex'">
+          <div class="fb" style="display:none;">CA</div>
+        </div>
+        <div class="cn">Capture<br>AM</div>
+      </div>
+
+    </div>
+    <div class="more">+ 318 autres professionnels de l'immobilier à travers la France</div>
+  </div>
+</div>
+
+</body>
+</html>

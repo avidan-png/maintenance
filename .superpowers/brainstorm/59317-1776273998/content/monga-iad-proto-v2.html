@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MONGA × IAD — Prototype v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #060d1a;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: #fff;
+  padding: 48px 0 64px;
+}
+
+:root {
+  --orange: #ff7832;
+  --gold: #d4af37;
+  --blue-base: #0d1f4e;
+  --blue-dark: #081428;
+  --text-muted: rgba(255,255,255,0.4);
+  --text-mid: rgba(255,255,255,0.65);
+  --border: rgba(255,255,255,0.08);
+  --card-bg: rgba(255,255,255,0.04);
+}
+
+.slide {
+  width: 960px;
+  height: 540px;
+  margin: 0 auto 20px;
+  position: relative;
+  overflow: hidden;
+  background: var(--blue-base);
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.slide-label {
+  width: 960px;
+  margin: 0 auto 44px;
+  padding: 0 2px;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.slide-label::before { content:''; display:block; width:16px; height:1px; background:rgba(255,255,255,0.15); }
+
+/* eyebrow style unifié */
+.eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.eyebrow.muted {
+  color: var(--text-muted);
+}
+
+/* ══════════════ SLIDE 1 — COVER ══════════════ */
+#s1 { background: linear-gradient(135deg, #07142a 0%, #0d1f4e 60%, #091832 100%); }
+
+#s1 .glow-r {
+  position:absolute; top:-120px; right:-80px;
+  width:480px; height:480px;
+  background: radial-gradient(circle, rgba(255,120,50,0.13) 0%, transparent 65%);
+  pointer-events:none;
+}
+#s1 .glow-l {
+  position:absolute; bottom:-80px; left:-40px;
+  width:320px; height:320px;
+  background: radial-gradient(circle, rgba(30,80,200,0.1) 0%, transparent 65%);
+  pointer-events:none;
+}
+#s1 .grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+#s1 .inner {
+  position:relative; z-index:2;
+  padding: 48px 60px;
+  height:100%;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+#s1 .top { display:flex; justify-content:space-between; align-items:center; }
+#s1 .logo { font-size:20px; font-weight:900; letter-spacing:0; color:#fff; }
+#s1 .logo span { color:var(--orange); }
+
+/* IAD logo zone */
+#s1 .iad-badge {
+  display:flex; align-items:center; gap:8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 7px 14px;
+}
+#s1 .iad-badge .for { font-size:9px; color:var(--text-muted); text-transform:uppercase; letter-spacing:2px; font-weight:600; }
+#s1 .iad-badge .name { font-size:14px; font-weight:800; color:rgba(255,255,255,0.75); letter-spacing:0.5px; }
+
+#s1 .mid { max-width:600px; }
+#s1 h1 {
+  font-size:46px; font-weight:900; line-height:1.04; letter-spacing:-1.5px;
+  color:#fff; margin-bottom:18px; margin-top:12px;
+}
+#s1 h1 em { font-style:normal; color:var(--orange); }
+#s1 .bar { width:40px; height:3px; background:var(--orange); border-radius:2px; margin-bottom:16px; }
+#s1 .tagline { font-size:15px; color:var(--text-mid); line-height:1.55; font-weight:400; }
+
+#s1 .bottom { display:flex; justify-content:space-between; align-items:flex-end; }
+#s1 .presenter { font-size:12px; color:var(--text-muted); line-height:1.7; }
+#s1 .presenter b { color:rgba(255,255,255,0.75); font-weight:700; font-size:13px; display:block; margin-bottom:1px; }
+#s1 .conf {
+  font-size:10px; font-weight:600; color:var(--text-muted); letter-spacing:1.5px;
+  text-align:right; line-height:1.8;
+}
+
+/* ══════════════ SLIDE 2 — PROBLÈME ══════════════ */
+#s2 { background: #08162e; }
+#s2 .accent { position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--orange), transparent 60%); }
+#s2 .ghost {
+  position:absolute; right:-20px; top:-30px;
+  font-size:260px; font-weight:900; letter-spacing:-8px; line-height:1;
+  color:rgba(255,120,50,0.045); pointer-events:none; user-select:none;
+}
+#s2 .inner {
+  position:relative; z-index:2;
+  padding: 54px 64px;
+  height:100%;
+  display:flex; flex-direction:column; justify-content:center; gap:20px;
+}
+#s2 .stat-row { display:flex; align-items:baseline; gap:22px; }
+#s2 .big { font-size:100px; font-weight:900; color:var(--orange); line-height:1; letter-spacing:-3px; }
+#s2 .desc { font-size:21px; color:var(--text-mid); font-weight:500; line-height:1.35; max-width:380px; }
+#s2 .rule { width:44px; height:2px; background:rgba(255,255,255,0.1); }
+#s2 .cta-row { display:flex; align-items:center; gap:14px; }
+#s2 .cta-text { font-size:28px; font-weight:800; color:#fff; letter-spacing:-0.5px; }
+#s2 .cta-pill {
+  background:var(--orange); color:#fff; border-radius:6px;
+  padding:6px 14px; font-size:11px; font-weight:800; letter-spacing:1px; text-transform:uppercase;
+}
+
+/* ══════════════ SLIDE 3 — CHIFFRES ══════════════ */
+#s3 { background: var(--blue-base); }
+#s3 .left-bar { position:absolute; left:0; top:0; bottom:0; width:4px; background:linear-gradient(180deg, var(--orange), var(--gold)); }
+#s3 .inner {
+  position:relative; z-index:2;
+  padding: 40px 52px 40px 56px;
+  height:100%;
+  display:flex; flex-direction:column; gap:16px;
+}
+#s3 .top { display:flex; justify-content:space-between; align-items:center; }
+#s3 .founding { font-size:13px; color:var(--text-muted); line-height:1.5; }
+#s3 .founding b { color:rgba(255,255,255,0.8); font-weight:600; }
+#s3 .kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; flex:1; }
+#s3 .kpi {
+  background:var(--card-bg); border:1px solid var(--border);
+  border-radius:8px; padding:14px 16px;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+#s3 .kpi.hot { background:rgba(255,120,50,0.08); border-color:rgba(255,120,50,0.22); }
+#s3 .kpi .lbl { font-size:9px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:2px; margin-bottom:6px; }
+#s3 .kpi .val { font-size:30px; font-weight:900; color:#fff; letter-spacing:-1px; line-height:1; }
+#s3 .kpi.hot .val { color:var(--orange); }
+#s3 .kpi .sub { font-size:10px; color:var(--text-muted); margin-top:3px; line-height:1.35; }
+#s3 .footer {
+  display:flex; align-items:center; gap:14px;
+  border-top:1px solid var(--border); padding-top:12px;
+}
+#s3 .footer .lbl { font-size:9px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:2px; }
+#s3 .footer .val { font-size:12px; color:var(--text-mid); font-weight:500; }
+
+/* ══════════════ SLIDE 4 — PROCESS ══════════════ */
+#s4 { background: #08162e; }
+#s4 .top-bar { position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--orange), var(--gold)); }
+#s4 .inner {
+  position:relative; z-index:2;
+  padding: 36px 48px 32px;
+  height:100%;
+  display:flex; flex-direction:column; gap:14px;
+}
+#s4 .hd { display:flex; justify-content:space-between; align-items:center; }
+#s4 h2 { font-size:19px; font-weight:900; color:#fff; letter-spacing:-0.3px; }
+#s4 .badge {
+  display:flex; align-items:center; gap:8px;
+  background:rgba(255,120,50,0.1); border:1px solid rgba(255,120,50,0.28);
+  border-radius:20px; padding:5px 14px;
+}
+#s4 .badge .n { font-size:15px; font-weight:900; color:var(--orange); }
+#s4 .badge .u { font-size:9px; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:1px; }
+
+/* Steps — horizontal, compact */
+#s4 .steps { display:flex; align-items:flex-start; gap:0; flex:1; position:relative; padding-top:8px; }
+#s4 .step { flex:1; display:flex; flex-direction:column; align-items:center; position:relative; }
+
+/* connector line between circles */
+#s4 .step::after {
+  content:'';
+  position:absolute;
+  top: 18px;
+  left: 50%; right: -50%;
+  height: 2px;
+  background: rgba(255,255,255,0.07);
+  z-index: 0;
+}
+#s4 .step:last-child::after { display:none; }
+#s4 .step.done::after { background: linear-gradient(90deg, var(--orange), rgba(255,120,50,0.25)); }
+
+#s4 .circle {
+  width:36px; height:36px; border-radius:50%;
+  border:2px solid rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.04);
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:800; color:rgba(255,255,255,0.3);
+  position:relative; z-index:1; flex-shrink:0; margin-bottom:10px;
+}
+#s4 .step.done .circle { background:var(--orange); border-color:var(--orange); color:#fff; }
+
+#s4 .stitle { font-size:12px; font-weight:700; color:#fff; text-align:center; margin-bottom:4px; }
+#s4 .step:not(.done) .stitle { color:rgba(255,255,255,0.45); }
+#s4 .ssub { font-size:10px; color:var(--text-muted); text-align:center; line-height:1.4; }
+
+#s4 .notes {
+  display:flex; gap:6px;
+  padding: 9px 14px;
+  background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:7px;
+}
+#s4 .note { font-size:10px; color:var(--text-muted); display:flex; align-items:center; gap:5px; }
+#s4 .note::before { content:'✓'; color:var(--orange); font-weight:700; font-size:11px; }
+#s4 .note + .note { padding-left:14px; border-left:1px solid var(--border); }
+
+/* ══════════════ SLIDE 5 — RÉFÉRENCES ══════════════ */
+#s5 { background: linear-gradient(140deg, #081428 0%, #0d1f4e 100%); }
+#s5 .accent-b { position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--orange), var(--gold) 50%, transparent 100%); }
+#s5 .inner {
+  position:relative; z-index:2;
+  padding:40px 52px;
+  height:100%;
+  display:flex; flex-direction:column; gap:18px;
+}
+#s5 h2 { font-size:24px; font-weight:900; letter-spacing:-0.5px; }
+#s5 .sub { font-size:12px; color:var(--text-muted); margin-top:3px; }
+
+#s5 .kpi-row { display:flex; gap:0; }
+#s5 .kstat { flex:1; padding:0 20px; border-right:1px solid var(--border); }
+#s5 .kstat:first-child { padding-left:0; }
+#s5 .kstat:last-child { border-right:none; }
+#s5 .kval { font-size:24px; font-weight:900; color:var(--orange); letter-spacing:-0.5px; line-height:1; }
+#s5 .kval.accent2 { color:var(--gold); }
+#s5 .klbl { font-size:9px; color:var(--text-muted); text-transform:uppercase; letter-spacing:2px; margin-top:3px; }
+
+#s5 .logos-lbl { font-size:9px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:3px; }
+#s5 .logos { display:flex; gap:10px; flex-wrap:wrap; align-items:stretch; }
+
+/* Logo card avec initiale + texte — fiable sans API externe */
+#s5 .lcard {
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.09);
+  border-radius:8px;
+  padding:11px 16px;
+  display:flex; align-items:center; gap:10px;
+  min-width:132px; height:52px;
+}
+#s5 .lcard .init {
+  width:28px; height:28px; border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:900; color:#fff; flex-shrink:0;
+}
+#s5 .lcard .cname { font-size:11px; font-weight:600; color:rgba(255,255,255,0.55); line-height:1.3; }
+
+#s5 .more { font-size:11px; color:rgba(255,255,255,0.25); font-style:italic; padding:4px 0; }
+</style>
+</head>
+<body>
+
+<!-- ════════ SLIDE 1 · COVER ════════ -->
+<div class="slide-label">01 · Cover</div>
+<div class="slide" id="s1">
+  <div class="glow-r"></div>
+  <div class="glow-l"></div>
+  <div class="grid"></div>
+  <div class="inner">
+    <div class="top">
+      <div class="logo">MONGA<span>.</span></div>
+      <div class="iad-badge">
+        <div class="for">Pour</div>
+        <div class="name">IAD France</div>
+      </div>
+    </div>
+    <div class="mid">
+      <div class="eyebrow">Présentation · Avril 2026</div>
+      <h1>La maintenance<br>multitechnique<br>pilotée par <em>l'IA.</em></h1>
+      <div class="bar"></div>
+      <div class="tagline">La plateforme pour les professionnels<br>de l'immobilier — de l'incident à la clôture.</div>
+    </div>
+    <div class="bottom">
+      <div class="presenter">
+        <b>Avidan Koubi</b>
+        Co-fondateur & CEO, Groupe Monga<br>
+        avidan@monga.io
+      </div>
+      <div class="conf">CONFIDENTIEL<br>Avril 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ SLIDE 2 · PROBLÈME ════════ -->
+<div class="slide-label">02 · Le problème</div>
+<div class="slide" id="s2">
+  <div class="accent"></div>
+  <div class="ghost">70</div>
+  <div class="inner">
+    <div class="eyebrow muted">La réalité terrain</div>
+    <div class="stat-row">
+      <div class="big">50–70%</div>
+      <div class="desc">du temps d'un gestionnaire locatif absorbé par la gestion technique.</div>
+    </div>
+    <div class="rule"></div>
+    <div class="cta-row">
+      <div class="cta-text">Monga règle ça.</div>
+      <div class="cta-pill">La solution →</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ SLIDE 3 · MONGA EN CHIFFRES ════════ -->
+<div class="slide-label">03 · Monga en chiffres</div>
+<div class="slide" id="s3">
+  <div class="left-bar"></div>
+  <div class="inner">
+    <div class="top">
+      <div class="eyebrow muted">Monga — 5 ans de terrain</div>
+      <div style="display:flex;align-items:center;gap:6px;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.25);border-radius:20px;padding:4px 12px;">
+        <div style="width:5px;height:5px;border-radius:50%;background:var(--gold);"></div>
+        <div style="font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;">#1 PropTech maintenance FR</div>
+      </div>
+    </div>
+    <div class="founding">Né en 2020 d'un constat simple : <b>un locataire mal servi = un mandat perdu.</b></div>
+    <div class="kpis">
+      <div class="kpi hot">
+        <div class="lbl">Clients actifs</div>
+        <div class="val">324+</div>
+        <div class="sub">Professionnels de l'immobilier</div>
+      </div>
+      <div class="kpi">
+        <div class="lbl">Surface sous pilotage</div>
+        <div class="val">7,5M</div>
+        <div class="sub">m² tertiaire</div>
+      </div>
+      <div class="kpi">
+        <div class="lbl">Réseau artisans</div>
+        <div class="val">4 700+</div>
+        <div class="sub">Partenaires, France entière</div>
+      </div>
+      <div class="kpi">
+        <div class="lbl">Équipe</div>
+        <div class="val">35</div>
+        <div class="sub">Collaborateurs, Paris</div>
+      </div>
+      <div class="kpi hot">
+        <div class="lbl">Attrition mandats</div>
+        <div class="val" style="color:var(--gold);">−32%</div>
+        <div class="sub">Baisse constatée 2025</div>
+      </div>
+      <div class="kpi">
+        <div class="lbl">Modèle</div>
+        <div class="val" style="font-size:20px;letter-spacing:0;">SaaS</div>
+        <div class="sub">+ exécution asset-light</div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="lbl">Fondateurs</div>
+      <div class="val">Avidan Koubi (IB/RE) · Kevin Valensi (ex-Doctolib, Centrale Paris)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ SLIDE 4 · PROCESS ════════ -->
+<div class="slide-label">04 · De l'incident à la clôture</div>
+<div class="slide" id="s4">
+  <div class="top-bar"></div>
+  <div class="inner">
+    <div class="hd">
+      <h2>De l'incident à la clôture — automatiquement</h2>
+      <div class="badge">
+        <div class="n">&lt; 24h</div>
+        <div class="u">délai moyen</div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step done">
+        <div class="circle">01</div>
+        <div class="stitle">Déclaration</div>
+        <div class="ssub">App ou<br>téléphone</div>
+      </div>
+      <div class="step done">
+        <div class="circle">02</div>
+        <div class="stitle">Qualification</div>
+        <div class="ssub">MonAI analyse<br>& catégorise</div>
+      </div>
+      <div class="step done">
+        <div class="circle">03</div>
+        <div class="stitle">Arbitrage</div>
+        <div class="ssub">Gestionnaire<br>valide en 1 clic</div>
+      </div>
+      <div class="step done">
+        <div class="circle">04</div>
+        <div class="stitle">Dispatch</div>
+        <div class="ssub">Meilleur artisan<br>sélectionné</div>
+      </div>
+      <div class="step">
+        <div class="circle">05</div>
+        <div class="stitle">Devis</div>
+        <div class="ssub">Validation<br>en 1 clic</div>
+      </div>
+      <div class="step">
+        <div class="circle">06</div>
+        <div class="stitle">Clôture</div>
+        <div class="ssub">Rapport +<br>KPI mis à jour</div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="note">Délai moyen ÷3 vs. manuel</div>
+      <div class="note">0 relance artisan</div>
+      <div class="note">100% traçable</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ SLIDE 5 · RÉFÉRENCES ════════ -->
+<div class="slide-label">05 · Références clients</div>
+<div class="slide" id="s5">
+  <div class="accent-b"></div>
+  <div class="inner">
+    <div>
+      <h2>Ils nous font confiance</h2>
+      <div class="sub">324+ professionnels — foncières, asset managers, property managers, institutionnels</div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kstat">
+        <div class="kval">324+</div>
+        <div class="klbl">Clients actifs</div>
+      </div>
+      <div class="kstat">
+        <div class="kval">7,5M</div>
+        <div class="klbl">m² sous pilotage</div>
+      </div>
+      <div class="kstat">
+        <div class="kval">4 700+</div>
+        <div class="klbl">Artisans réseau</div>
+      </div>
+      <div class="kstat">
+        <div class="kval accent2">−32%</div>
+        <div class="klbl">Attrition mandats</div>
+      </div>
+    </div>
+
+    <div class="logos-lbl">Références clients</div>
+    <div class="logos">
+      <div class="lcard">
+        <div class="init" style="background:linear-gradient(135deg,#c8a830,#8a6e10);">GD</div>
+        <div class="cname">Groupe<br>Duval</div>
+      </div>
+      <div class="lcard">
+        <div class="init" style="background:linear-gradient(135deg,#0055a0,#003570);">AE</div>
+        <div class="cname">AEW<br>Europe</div>
+      </div>
+      <div class="lcard">
+        <div class="init" style="background:linear-gradient(135deg,#e63323,#9e1f14);">CI</div>
+        <div class="cname">Covéa<br>Immobilier</div>
+      </div>
+      <div class="lcard">
+        <div class="init" style="background:linear-gradient(135deg,#1a1a2e,#4a4a6e);">MG</div>
+        <div class="cname">Moma<br>Group</div>
+      </div>
+      <div class="lcard">
+        <div class="init" style="background:linear-gradient(135deg,#2e7d32,#1b5e20);">SG</div>
+        <div class="cname">SGL<br>Immobilier</div>
+      </div>
+      <div class="lcard">
+        <div class="init" style="background:linear-gradient(135deg,#ff7832,#c04010);">CA</div>
+        <div class="cname">Capture<br>AM</div>
+      </div>
+    </div>
+    <div class="more">+ 318 autres professionnels de l'immobilier à travers la France</div>
+  </div>
+</div>
+
+</body>
+</html>

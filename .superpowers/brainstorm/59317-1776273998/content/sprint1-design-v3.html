@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 1 — Contrats de maintenance</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #f7f7f8;
+    color: #191c1f;
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* LAYOUT */
+  .sidebar {
+    width: 220px; background: #fff; height: 100vh;
+    position: fixed; left: 0; top: 0;
+    border-right: 1px solid #ebebf0;
+    display: flex; flex-direction: column;
+    padding: 24px 0;
+  }
+  .sidebar-logo {
+    padding: 0 20px 24px;
+    font-size: 15px; font-weight: 800; letter-spacing: -0.5px; color: #191c1f;
+  }
+  .sidebar-logo span { color: #6366f1; }
+  .nav-section { padding: 0 12px; margin-bottom: 8px; }
+  .nav-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #b0b0bd; padding: 8px 8px 4px; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 10px; border-radius: 10px;
+    font-size: 13px; font-weight: 500; color: #697586;
+    cursor: pointer; transition: all 0.1s;
+    margin-bottom: 2px;
+  }
+  .nav-item:hover { background: #f7f7f8; color: #191c1f; }
+  .nav-item.active { background: #f0f0ff; color: #6366f1; font-weight: 600; }
+  .nav-icon { width: 16px; text-align: center; font-size: 14px; }
+
+  .main { margin-left: 220px; padding: 32px 36px; min-height: 100vh; }
+
+  /* PAGE HEADER */
+  .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; }
+  .page-header-left h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.4px; color: #191c1f; margin-bottom: 3px; }
+  .page-header-left p { font-size: 13px; color: #697586; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 16px; border-radius: 10px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    font-family: 'Inter', sans-serif; border: none;
+  }
+  .btn-primary { background: #191c1f; color: #fff; }
+  .btn-primary:hover { background: #2d3139; }
+  .btn-ghost { background: #fff; color: #191c1f; border: 1px solid #ebebf0; }
+  .btn-row { display: flex; gap: 8px; }
+
+  /* STATS */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+  .stat-card {
+    background: #fff; border-radius: 14px;
+    border: 1px solid #ebebf0;
+    padding: 18px 20px;
+  }
+  .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; color: #b0b0bd; text-transform: uppercase; margin-bottom: 8px; }
+  .stat-value { font-size: 24px; font-weight: 800; letter-spacing: -1px; color: #191c1f; }
+  .stat-sub { font-size: 11px; color: #697586; margin-top: 4px; }
+  .stat-danger .stat-value { color: #ef4444; }
+  .stat-warn .stat-value { color: #f59e0b; }
+
+  /* IMPORT SECTION */
+  .section-header { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #b0b0bd; margin-bottom: 12px; }
+  .import-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px; }
+  .import-card {
+    background: #fff; border: 1.5px dashed #e0e0ea;
+    border-radius: 14px; padding: 20px 22px;
+    display: flex; align-items: center; gap: 16px;
+    cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  }
+  .import-card:hover { border-color: #6366f1; background: #fafaff; }
+  .import-card.new { border-color: #c7f7de; background: #f0fdf7; }
+  .import-card.new:hover { border-color: #22c55e; }
+  .ic-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .ic-excel { background: #dcfce7; }
+  .ic-pdf { background: #eff6ff; }
+  .ic-body h4 { font-size: 13px; font-weight: 600; color: #191c1f; margin-bottom: 3px; }
+  .ic-body p { font-size: 12px; color: #697586; line-height: 1.5; }
+  .pill { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 8px; border-radius: 6px; margin-top: 8px; }
+  .pill-green { background: #dcfce7; color: #16a34a; }
+  .pill-gray { background: #f1f1f5; color: #697586; }
+
+  /* TOOLBAR */
+  .toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff; border: 1px solid #ebebf0;
+    border-radius: 8px; padding: 6px 12px;
+    font-size: 12px; font-weight: 500; color: #697586; cursor: pointer;
+  }
+  .filter-chip.active { background: #f0f0ff; border-color: #c7c7ff; color: #6366f1; font-weight: 600; }
+  .filter-chip .arrow { color: #b0b0bd; font-size: 10px; }
+
+  /* PREAVIS BANNER */
+  .preavis-banner {
+    background: #fff; border: 1px solid #ebebf0;
+    border-radius: 12px; padding: 12px 18px;
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 14px; font-size: 12px; color: #697586;
+  }
+  .preavis-banner strong { color: #191c1f; }
+  .fake-select {
+    background: #f7f7f8; border: 1px solid #e0e0ea;
+    border-radius: 8px; padding: 5px 10px;
+    font-size: 12px; font-weight: 600; color: #191c1f;
+    font-family: 'Inter', sans-serif;
+    display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  }
+  .fake-select::after { content: '⌄'; color: #b0b0bd; }
+
+  /* TABLE */
+  .table-card { background: #fff; border: 1px solid #ebebf0; border-radius: 16px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    padding: 11px 16px; text-align: left;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: #b0b0bd;
+    background: #fafafa; border-bottom: 1px solid #ebebf0;
+    white-space: nowrap;
+  }
+  thead th.th-new { color: #6366f1; }
+  tbody tr { border-bottom: 1px solid #f5f5f7; transition: background 0.1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #fafafa; }
+  td { padding: 13px 16px; white-space: nowrap; font-size: 12px; }
+  td.td-main { font-weight: 500; color: #191c1f; }
+  td.td-sub { color: #697586; }
+  td.td-amount { font-weight: 700; color: #191c1f; font-variant-numeric: tabular-nums; }
+
+  .source-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; }
+  .src-monga { background: #f0f0ff; color: #6366f1; }
+  .src-ext { background: #f0fdf7; color: #16a34a; }
+
+  .date-num { font-variant-numeric: tabular-nums; font-size: 12px; }
+  .date-ok { color: #16a34a; font-weight: 600; }
+  .date-warn { color: #d97706; font-weight: 600; }
+  .date-danger { color: #dc2626; font-weight: 600; }
+  .date-muted { color: #b0b0bd; }
+
+  .status-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 20px; }
+  .sp-ok { background: #f0fdf7; color: #16a34a; }
+  .sp-warn { background: #fffbeb; color: #d97706; }
+  .sp-danger { background: #fef2f2; color: #dc2626; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+  .dot-ok { background: #22c55e; }
+  .dot-warn { background: #f59e0b; }
+  .dot-danger { background: #ef4444; }
+
+  .tag-new { font-size: 9px; font-weight: 700; background: #f0f0ff; color: #6366f1; padding: 2px 6px; border-radius: 4px; margin-left: 5px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.3px; }
+
+  /* LEGEND */
+  .legend { display: flex; gap: 20px; margin-top: 14px; padding: 0 4px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #b0b0bd; }
+
+  /* CHECKBOX */
+  .cb { width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid #e0e0ea; background: #fff; display: inline-block; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo">mon<span>ga</span></div>
+  <div class="nav-section">
+    <div class="nav-label">Gestion</div>
+    <div class="nav-item"><span class="nav-icon">🏢</span> Biens</div>
+    <div class="nav-item"><span class="nav-icon">📋</span> Missions</div>
+    <div class="nav-item active"><span class="nav-icon">🔧</span> Contrats</div>
+    <div class="nav-item"><span class="nav-icon">👥</span> Prestataires</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Finance</div>
+    <div class="nav-item"><span class="nav-icon">📊</span> Rapports</div>
+    <div class="nav-item"><span class="nav-icon">💳</span> Facturation</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <h1>Contrats de maintenance</h1>
+      <p>18 contrats actifs · Mis à jour le 15 avril 2026</p>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost">Exporter</button>
+      <button class="btn btn-primary">+ Ajouter un contrat</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Contrats actifs</div>
+      <div class="stat-value">18</div>
+      <div class="stat-sub">11 Monga · 7 Externes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total annuel</div>
+      <div class="stat-value">33 675 €</div>
+      <div class="stat-sub">HT / an</div>
+    </div>
+    <div class="stat-card stat-danger">
+      <div class="stat-label">Délai dépassé</div>
+      <div class="stat-value">4</div>
+      <div class="stat-sub">Contrats reconduits tacitement</div>
+    </div>
+    <div class="stat-card stat-warn">
+      <div class="stat-label">À dénoncer bientôt</div>
+      <div class="stat-value">6</div>
+      <div class="stat-sub">Échéance dans &lt; 6 mois</div>
+    </div>
+  </div>
+
+  <!-- IMPORT -->
+  <div class="section-header">Import</div>
+  <div class="import-row">
+    <div class="import-card new">
+      <div class="ic-icon ic-excel">📊</div>
+      <div class="ic-body">
+        <h4>Importer un tableau récap Excel</h4>
+        <p>Multi-feuilles .xlsx · Toutes propriétés en un import · Mapping automatique</p>
+        <span class="pill pill-green">Nouveau · Sprint 1</span>
+      </div>
+    </div>
+    <div class="import-card">
+      <div class="ic-icon ic-pdf">📄</div>
+      <div class="ic-body">
+        <h4>Importer un contrat PDF</h4>
+        <p>Monga ou externe · Extraction IA · Validation manuelle</p>
+        <span class="pill pill-gray">Existant</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREAVIS -->
+  <div class="preavis-banner">
+    <strong>Délai de préavis par défaut</strong>
+    <div class="fake-select">3 mois</div>
+    <span style="margin-left:auto; color:#b0b0bd;">Modifiable par contrat · Appliqué automatiquement à l'import</span>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="filter-row">
+      <div class="filter-chip active">Tous <span class="arrow">▾</span></div>
+      <div class="filter-chip">Source <span class="arrow">▾</span></div>
+      <div class="filter-chip">Type <span class="arrow">▾</span></div>
+      <div class="filter-chip">Récurrence <span class="arrow">▾</span></div>
+      <div class="filter-chip" style="background:#fef2f2; border-color:#fecaca; color:#dc2626; font-weight:600;">🔴 Urgents (4)</div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:32px;"></th>
+          <th>Source</th>
+          <th>Adresse</th>
+          <th>Prestation</th>
+          <th>Prestataire</th>
+          <th>Montant</th>
+          <th>Date de fin</th>
+          <th class="th-new">Date dénonciation <span class="tag-new">New</span></th>
+          <th class="th-new">Statut <span class="tag-new">New</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="cb"></span></td>
+          <td><span class="source-badge src-ext">Externe</span></td>
+          <td class="td-sub">285 Av. Père Léonid, Montauban</td>
+          <td class="td-main">Entretien toiture</td>
+          <td class="td-sub">Midi Aquitaine Étanchéité</td>
+          <td class="td-amount">1 200 €</td>
+          <td class="date-num date-muted">31/12/2025</td>
+          <td class="date-num date-danger">30/09/2025</td>
+          <td><span class="status-pill sp-danger"><span class="dot dot-danger"></span>Reconduit</span></td>
+        </tr>
+        <tr>
+          <td><span class="cb"></span></td>
+          <td><span class="source-badge src-ext">Externe</span></td>
+          <td class="td-sub">ZAC Tube Retortier, Istres</td>
+          <td class="td-main">Espaces verts</td>
+          <td class="td-sub">Plagnol Espaces Verts</td>
+          <td class="td-amount">6 960 €</td>
+          <td class="date-num date-muted">31/12/2026</td>
+          <td class="date-num date-warn">30/09/2026</td>
+          <td><span class="status-pill sp-warn"><span class="dot dot-warn"></span>Dans 5 mois</span></td>
+        </tr>
+        <tr>
+          <td><span class="cb"></span></td>
+          <td><span class="source-badge src-monga">Monga</span></td>
+          <td class="td-sub">11 Quai Lamennais, Rennes</td>
+          <td class="td-main">Nettoyage intérieur</td>
+          <td class="td-sub">Rennes Clair Nettoyage</td>
+          <td class="td-amount">19 800 €</td>
+          <td class="date-num date-muted">31/12/2026</td>
+          <td class="date-num date-ok">30/09/2026</td>
+          <td><span class="status-pill sp-ok"><span class="dot dot-ok"></span>OK · 5 mois</span></td>
+        </tr>
+        <tr>
+          <td><span class="cb"></span></td>
+          <td><span class="source-badge src-monga">Monga</span></td>
+          <td class="td-sub">Zone Petit Coudray, Arconnay</td>
+          <td class="td-main">Entretien parking</td>
+          <td class="td-sub">Netto-Decor</td>
+          <td class="td-amount">12 260 €</td>
+          <td class="date-num date-muted">31/03/2026</td>
+          <td class="date-num date-danger">31/12/2025</td>
+          <td><span class="status-pill sp-danger"><span class="dot dot-danger"></span>Reconduit</span></td>
+        </tr>
+        <tr>
+          <td><span class="cb"></span></td>
+          <td><span class="source-badge src-ext">Externe</span></td>
+          <td class="td-sub">Palais des Congrès, Antibes</td>
+          <td class="td-main">Maintenance P2/P3</td>
+          <td class="td-sub">Engie Énergie Services</td>
+          <td class="td-amount">475 590 €</td>
+          <td class="date-num date-muted">31/12/2026</td>
+          <td class="date-num date-warn">30/09/2026</td>
+          <td><span class="status-pill sp-warn"><span class="dot dot-warn"></span>Dans 5 mois</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="dot dot-ok"></span>Plus de 6 mois — aucune action requise</div>
+    <div class="legend-item"><span class="dot dot-warn"></span>Moins de 6 mois — à planifier</div>
+    <div class="legend-item"><span class="dot dot-danger"></span>Délai dépassé — contrat reconduit tacitement</div>
+  </div>
+
+</div>
+</body>
+</html>

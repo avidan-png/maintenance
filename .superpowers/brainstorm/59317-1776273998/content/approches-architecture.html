@@ -1,0 +1,68 @@
+<h2>3 approches pour l'outil de pilotage des contrats</h2>
+<p class="subtitle">Sélectionne l'approche qui te convient — ou dis-moi ce que tu veux combiner</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px; display:flex; align-items:center; justify-content:center; height:120px;">
+      <div style="text-align:center;">
+        <div style="font-size:36px; margin-bottom:8px;">⚡</div>
+        <div style="color:#7c8cf8; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Skill Claude Code</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Script IA interne</h3>
+      <p>Un skill Claude Code piloté par l'équipe Monga. Import Excel → enrichissement fournisseur par IA → génération PDF lettres → export batch. Pas d'interface client.</p>
+      <div class="pros-cons" style="margin-top:12px;">
+        <div class="pros"><h4>Pour</h4><ul><li>Très rapide à déployer</li><li>0 infra à gérer</li><li>IA-native</li></ul></div>
+        <div class="cons"><h4>Contre</h4><ul><li>Usage interne uniquement</li><li>Pas d'accès client</li><li>Pas de tableau de bord</li></ul></div>
+      </div>
+      <p style="margin-top:12px; font-size:12px; color:#888;">Adapté si : usage Monga only, MVP très rapide</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); padding: 20px; display:flex; align-items:center; justify-content:center; height:120px;">
+      <div style="text-align:center;">
+        <div style="font-size:36px; margin-bottom:8px;">🌐</div>
+        <div style="color:#4ecdc4; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">App Web Classique</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — App web full-stack</h3>
+      <p>Next.js + PostgreSQL + API REST. Multi-tenant : Monga admin + accès clients. Upload Excel, dashboard, alertes, génération lettres, multi-CTA envoi.</p>
+      <div class="pros-cons" style="margin-top:12px;">
+        <div class="pros"><h4>Pour</h4><ul><li>Interface client complète</li><li>Standard, maintenable</li><li>Multi-tenant natif</li></ul></div>
+        <div class="cons"><h4>Contre</h4><ul><li>Plus long à construire</li><li>Infra + BDD à gérer</li><li>Enrichissement manuel</li></ul></div>
+      </div>
+      <p style="margin-top:12px; font-size:12px; color:#888;">Adapté si : produit long terme, équipe dev dédiée</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)" style="position:relative;">
+    <div style="position:absolute; top:10px; right:10px; background:#7c8cf8; color:#fff; font-size:10px; font-weight:700; padding:3px 8px; border-radius:20px; letter-spacing:1px; z-index:1;">RECOMMANDÉ</div>
+    <div class="card-image" style="background: linear-gradient(135deg, #1a0533 0%, #2d1b69 50%, #11998e 100%); padding: 20px; display:flex; align-items:center; justify-content:center; height:120px;">
+      <div style="text-align:center;">
+        <div style="font-size:36px; margin-bottom:8px;">🚀</div>
+        <div style="color:#a78bfa; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">App Web + Claude API</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — App web IA-augmentée</h3>
+      <p>Next.js + Supabase (BDD + Auth + Storage) + Claude API. Interface moderne multi-tenant avec IA embarquée pour enrichissement fournisseurs et génération intelligente des lettres.</p>
+      <div class="pros-cons" style="margin-top:12px;">
+        <div class="pros"><h4>Pour</h4><ul><li>Accès Monga + clients</li><li>Enrichissement auto IA</li><li>Lettres personnalisées par IA</li><li>Infra rapide via Supabase</li></ul></div>
+        <div class="cons"><h4>Contre</h4><ul><li>Coût API Claude</li><li>Intégrations tierces (AR24, Maileva)</li></ul></div>
+      </div>
+      <p style="margin-top:12px; font-size:12px; color:#a78bfa; font-weight:600;">Meilleur équilibre vitesse × puissance × expérience client</p>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:24px; padding:16px; background:rgba(124,140,248,0.08); border:1px solid rgba(124,140,248,0.2); border-radius:8px;">
+  <p style="margin:0; font-size:13px; color:#888;">
+    <strong style="color:#a78bfa;">Approche sprint recommandée :</strong>
+    Sprint 1 = import + dashboard + alertes échéances. Sprint 2 = enrichissement fournisseur + génération lettres. Sprint 3 = envoi multi-CTA (PDF / LRE / postal).
+  </p>
+</div>

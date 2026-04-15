@@ -1,0 +1,198 @@
+<h2>Design system & layouts de slides</h2>
+<p class="subtitle">Les 6 types de slides que le système maîtrisera. Cliquez sur ceux que vous voulez ajuster.</p>
+
+<style>
+.slide-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 20px; }
+.slide-card { border-radius: 10px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
+.slide-card:hover { border-color: rgba(255,255,255,0.2); }
+.slide-card.selected { border-color: #4a9eff !important; }
+.slide-preview { aspect-ratio: 16/9; position: relative; overflow: hidden; }
+.slide-label { padding: 10px 12px; background: rgba(255,255,255,0.05); }
+.slide-label h4 { margin: 0 0 2px; font-size: 12px; color: rgba(255,255,255,0.9); font-weight: 700; }
+.slide-label p { margin: 0; font-size: 11px; color: rgba(255,255,255,0.45); }
+</style>
+
+<div class="slide-grid">
+
+  <!-- 1. Cover slide -->
+  <div class="slide-card" data-choice="cover" onclick="toggleSelect(this)">
+    <div class="slide-preview" style="background:#0a1628;">
+      <div style="position:absolute;top:0;left:0;bottom:0;width:4px;background:linear-gradient(180deg,#ff7832,#d4af37);"></div>
+      <div style="position:absolute;top:0;right:0;bottom:0;width:45%;background:linear-gradient(160deg,rgba(255,120,50,0.12),rgba(212,175,55,0.08));"></div>
+      <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.04) 1px,transparent 1px);background-size:16px 16px;"></div>
+      <div style="position:relative;z-index:2;padding:18px 18px 18px 22px;height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:7px;font-weight:700;color:#ff7832;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;">PITCH DECK · CONFIDENTIEL</div>
+        <div style="font-size:18px;font-weight:900;color:#fff;line-height:1.1;letter-spacing:-0.5px;">Accélérer la<br>transformation<br><span style="color:#d4af37;">digitale.</span></div>
+        <div style="width:28px;height:2px;background:#ff7832;margin:10px 0;"></div>
+        <div style="font-size:8px;color:rgba(255,255,255,0.4);">Nom Client · Novembre 2024</div>
+        <!-- Logo placeholder -->
+        <div style="position:absolute;bottom:14px;right:16px;width:36px;height:14px;background:rgba(255,255,255,0.12);border-radius:3px;display:flex;align-items:center;justify-content:center;">
+          <div style="font-size:6px;color:rgba(255,255,255,0.4);font-weight:700;letter-spacing:1px;">LOGO</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-label"><h4>Cover</h4><p>Titre, sous-titre, logo client auto-sourcé</p></div>
+  </div>
+
+  <!-- 2. KPIs / Metrics -->
+  <div class="slide-card" data-choice="metrics" onclick="toggleSelect(this)">
+    <div class="slide-preview" style="background:#0b1f3a;">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff7832 0%,transparent 70%);"></div>
+      <div style="position:relative;z-index:2;padding:16px;height:100%;box-sizing:border-box;display:flex;flex-direction:column;">
+        <div style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">RÉSULTATS CLÉS</div>
+        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:12px;letter-spacing:-0.3px;">Performance Q3 2024</div>
+        <div style="display:flex;gap:6px;flex:1;">
+          <div style="flex:1;background:rgba(255,120,50,0.12);border:1px solid rgba(255,120,50,0.25);border-radius:6px;padding:8px;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+            <div style="font-size:20px;font-weight:900;color:#ff7832;">+47%</div>
+            <div style="font-size:6px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1.5px;margin-top:3px;text-align:center;">Croissance CA</div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:8px;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+            <div style="font-size:20px;font-weight:900;color:#fff;">€8.2M</div>
+            <div style="font-size:6px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1.5px;margin-top:3px;text-align:center;">ARR</div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:8px;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+            <div style="font-size:20px;font-weight:900;color:#d4af37;">92%</div>
+            <div style="font-size:6px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1.5px;margin-top:3px;text-align:center;">Rétention</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-label"><h4>KPIs / Métriques</h4><p>3–4 chiffres clés, auto-colorés par valeur</p></div>
+  </div>
+
+  <!-- 3. Chart slide -->
+  <div class="slide-card" data-choice="chart" onclick="toggleSelect(this)">
+    <div class="slide-preview" style="background:#0a1628;">
+      <div style="position:absolute;top:0;left:0;bottom:0;width:4px;background:rgba(212,175,55,0.6);"></div>
+      <div style="position:relative;z-index:2;padding:14px 14px 14px 18px;height:100%;box-sizing:border-box;display:flex;flex-direction:column;">
+        <div style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;">ÉVOLUTION</div>
+        <div style="font-size:12px;font-weight:900;color:#fff;margin-bottom:10px;">Croissance pipeline · 2022–2024</div>
+        <!-- Fake bar chart -->
+        <div style="flex:1;display:flex;align-items:flex-end;gap:4px;padding-bottom:4px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;">
+            <div style="width:100%;height:28%;background:rgba(255,120,50,0.3);border-radius:2px 2px 0 0;"></div>
+            <div style="font-size:5px;color:rgba(255,255,255,0.3);">2022</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;">
+            <div style="width:100%;height:48%;background:rgba(255,120,50,0.5);border-radius:2px 2px 0 0;"></div>
+            <div style="font-size:5px;color:rgba(255,255,255,0.3);">Q1</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;">
+            <div style="width:100%;height:38%;background:rgba(255,120,50,0.4);border-radius:2px 2px 0 0;"></div>
+            <div style="font-size:5px;color:rgba(255,255,255,0.3);">Q2</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;">
+            <div style="width:100%;height:65%;background:rgba(255,120,50,0.6);border-radius:2px 2px 0 0;"></div>
+            <div style="font-size:5px;color:rgba(255,255,255,0.3);">Q3</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;">
+            <div style="width:100%;height:82%;background:rgba(255,120,50,0.8);border-radius:2px 2px 0 0;"></div>
+            <div style="font-size:5px;color:rgba(255,255,255,0.3);">Q4</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;">
+            <div style="width:100%;height:100%;background:#ff7832;border-radius:2px 2px 0 0;"></div>
+            <div style="font-size:5px;color:rgba(255,255,255,0.3);">2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-label"><h4>Chart / Graphique</h4><p>Bar, line, donut — générés depuis vos données</p></div>
+  </div>
+
+  <!-- 4. Image + Text -->
+  <div class="slide-card" data-choice="visual" onclick="toggleSelect(this)">
+    <div class="slide-preview" style="background:#0b1f3a;">
+      <!-- Right: full bleed photo zone -->
+      <div style="position:absolute;top:0;right:0;bottom:0;width:48%;background:linear-gradient(160deg,#1a3a5c,#0b2a45);overflow:hidden;">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,0.02) 0px,rgba(255,255,255,0.02) 1px,transparent 1px,transparent 12px);"></div>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center;">
+            <div style="font-size:20px;opacity:0.2;">🖼</div>
+            <div style="font-size:6px;color:rgba(255,255,255,0.25);margin-top:4px;letter-spacing:1px;">PHOTO UNSPLASH</div>
+          </div>
+        </div>
+        <div style="position:absolute;inset:0;background:linear-gradient(90deg,#0b1f3a 0%,transparent 30%);"></div>
+      </div>
+      <!-- Left: content -->
+      <div style="position:relative;z-index:2;padding:16px;width:56%;box-sizing:border-box;height:100%;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:7px;font-weight:700;color:#ff7832;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">CONTEXTE</div>
+        <div style="font-size:13px;font-weight:900;color:#fff;line-height:1.2;letter-spacing:-0.3px;">Un marché en<br>pleine mutation</div>
+        <div style="margin-top:10px;display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:4px;height:4px;background:#ff7832;border-radius:50%;flex-shrink:0;"></div>
+            <div style="height:4px;background:rgba(255,255,255,0.15);border-radius:2px;flex:1;"></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:4px;height:4px;background:#d4af37;border-radius:50%;flex-shrink:0;"></div>
+            <div style="height:4px;background:rgba(255,255,255,0.12);border-radius:2px;flex:0.8;"></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:4px;height:4px;background:rgba(255,255,255,0.3);border-radius:50%;flex-shrink:0;"></div>
+            <div style="height:4px;background:rgba(255,255,255,0.1);border-radius:2px;flex:0.9;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-label"><h4>Visuel + Texte</h4><p>Photo Unsplash contextuelle + points clés</p></div>
+  </div>
+
+  <!-- 5. Comparison / Logos -->
+  <div class="slide-card" data-choice="compare" onclick="toggleSelect(this)">
+    <div class="slide-preview" style="background:#0a1628;">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#d4af37 0%,transparent 60%);"></div>
+      <div style="position:relative;z-index:2;padding:14px;height:100%;box-sizing:border-box;display:flex;flex-direction:column;">
+        <div style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;">BENCHMARK CONCURRENTIEL</div>
+        <div style="font-size:12px;font-weight:900;color:#fff;margin-bottom:10px;">Notre position vs le marché</div>
+        <div style="display:flex;gap:5px;flex:1;">
+          <!-- Us -->
+          <div style="flex:1.2;background:rgba(255,120,50,0.1);border:1px solid rgba(255,120,50,0.3);border-radius:6px;padding:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+            <div style="width:28px;height:10px;background:rgba(255,255,255,0.15);border-radius:2px;"></div>
+            <div style="font-size:6px;color:#ff7832;font-weight:700;letter-spacing:1px;">NOUS</div>
+            <div style="font-size:14px;font-weight:900;color:#fff;">A+</div>
+          </div>
+          <!-- Competitor 1 -->
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+            <div style="width:22px;height:8px;background:rgba(255,255,255,0.1);border-radius:2px;"></div>
+            <div style="font-size:6px;color:rgba(255,255,255,0.4);font-weight:600;letter-spacing:1px;">LOGO</div>
+            <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.5);">B</div>
+          </div>
+          <!-- Competitor 2 -->
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+            <div style="width:22px;height:8px;background:rgba(255,255,255,0.1);border-radius:2px;"></div>
+            <div style="font-size:6px;color:rgba(255,255,255,0.4);font-weight:600;letter-spacing:1px;">LOGO</div>
+            <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.5);">C+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-label"><h4>Comparaison + Logos</h4><p>Benchmark, logos auto-sourcés via Brandfetch</p></div>
+  </div>
+
+  <!-- 6. Quote / Closing -->
+  <div class="slide-card" data-choice="quote" onclick="toggleSelect(this)">
+    <div class="slide-preview" style="background:#0b1f3a;">
+      <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(212,175,55,0.06) 1px,transparent 1px);background-size:18px 18px;"></div>
+      <div style="position:absolute;top:12px;left:14px;font-size:32px;color:rgba(212,175,55,0.25);font-family:Georgia,serif;line-height:1;">"</div>
+      <div style="position:relative;z-index:2;padding:18px 16px;height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
+        <div style="font-size:12px;font-weight:700;color:#fff;line-height:1.4;font-family:Georgia,serif;font-style:italic;max-width:85%;">La transformation n'est pas une option, c'est la condition de la survie.</div>
+        <div style="width:24px;height:2px;background:#d4af37;margin:12px 0;"></div>
+        <div style="font-size:8px;color:rgba(255,255,255,0.45);letter-spacing:1px;text-transform:uppercase;">Satya Nadella · CEO, Microsoft</div>
+        <div style="position:absolute;bottom:14px;right:14px;display:flex;gap:4px;">
+          <div style="width:24px;height:8px;background:rgba(255,255,255,0.08);border-radius:2px;"></div>
+          <div style="width:16px;height:8px;background:rgba(255,255,255,0.05);border-radius:2px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-label"><h4>Citation / Closing</h4><p>Impact émotionnel, conclusion mémorable</p></div>
+  </div>
+
+</div>
+
+<p style="margin-top:18px;font-size:12px;color:rgba(255,255,255,0.4);text-align:center;">
+  Palette : <span style="color:#0a1628;background:#0a1628;border-radius:3px;padding:0 6px;">■</span>
+  <span style="color:#0b1f3a;background:#0b1f3a;border-radius:3px;padding:0 6px;">■</span>
+  <span style="color:#ff7832;background:#ff7832;border-radius:3px;padding:0 6px;">■</span>
+  <span style="color:#d4af37;background:#d4af37;border-radius:3px;padding:0 6px;">■</span>
+  <span style="color:#fff;background:rgba(255,255,255,0.15);border-radius:3px;padding:0 6px;">■</span>
+  &nbsp;· Typo : Inter (titres) + Georgia (citations)
+</p>

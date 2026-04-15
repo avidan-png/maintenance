@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 3 — Enrichissement & Lettres</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f7f7f8; color: #191c1f; font-family: 'Inter', -apple-system, sans-serif; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+  .sidebar { width: 220px; background: #fff; height: 100vh; position: fixed; left: 0; top: 0; border-right: 1px solid #ebebf0; display: flex; flex-direction: column; padding: 24px 0; }
+  .sidebar-logo { padding: 0 20px 24px; font-size: 15px; font-weight: 800; letter-spacing: -0.5px; color: #191c1f; }
+  .sidebar-logo span { color: #6366f1; }
+  .nav-section { padding: 0 12px; margin-bottom: 8px; }
+  .nav-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #b0b0bd; padding: 8px 8px 4px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 10px; font-size: 13px; font-weight: 500; color: #697586; cursor: pointer; margin-bottom: 2px; }
+  .nav-item.active { background: #f0f0ff; color: #6366f1; font-weight: 600; }
+  .nav-icon { width: 16px; text-align: center; font-size: 14px; }
+
+  .main { margin-left: 220px; padding: 32px 36px; }
+
+  .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; }
+  .page-header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.4px; color: #191c1f; margin-bottom: 3px; }
+  .page-header p { font-size: 13px; color: #697586; }
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; border: none; }
+  .btn-primary { background: #191c1f; color: #fff; }
+  .btn-ghost { background: #fff; color: #191c1f; border: 1px solid #ebebf0; }
+  .btn-row { display: flex; gap: 8px; }
+
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #b0b0bd; margin-bottom: 14px; margin-top: 28px; }
+
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid #ebebf0; margin-bottom: 24px; }
+  .tab { padding: 10px 18px; font-size: 13px; font-weight: 500; color: #697586; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .tab.active { color: #191c1f; font-weight: 600; border-bottom-color: #191c1f; }
+
+  /* STEPPER */
+  .stepper { display: flex; align-items: center; gap: 0; margin-bottom: 28px; }
+  .step { display: flex; align-items: center; gap: 10px; flex: 1; }
+  .step-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .step-done .step-circle { background: #191c1f; color: #fff; }
+  .step-active .step-circle { background: #6366f1; color: #fff; }
+  .step-pending .step-circle { background: #f7f7f8; color: #b0b0bd; border: 1.5px solid #e0e0ea; }
+  .step-label { font-size: 12px; font-weight: 600; }
+  .step-done .step-label { color: #697586; }
+  .step-active .step-label { color: #191c1f; }
+  .step-pending .step-label { color: #b0b0bd; }
+  .step-line { flex: 1; height: 1px; background: #e0e0ea; margin: 0 8px; }
+  .step-line.done { background: #191c1f; }
+
+  /* ENRICHISSEMENT TABLE */
+  .table-card { background: #fff; border: 1px solid #ebebf0; border-radius: 16px; overflow: hidden; margin-bottom: 12px; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th { padding: 11px 16px; text-align: left; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #b0b0bd; background: #fafafa; border-bottom: 1px solid #ebebf0; white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid #f5f5f7; transition: background 0.1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #fafafa; }
+  td { padding: 13px 16px; font-size: 12px; }
+  td.td-main { font-weight: 500; color: #191c1f; }
+  td.td-sub { color: #697586; }
+
+  .enrich-status { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 20px; }
+  .es-ok { background: #f0fdf7; color: #16a34a; }
+  .es-partial { background: #fffbeb; color: #d97706; }
+  .es-missing { background: #fef2f2; color: #dc2626; }
+  .es-manual { background: #f0f0ff; color: #6366f1; }
+
+  .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .dot-ok { background: #22c55e; }
+  .dot-warn { background: #f59e0b; }
+  .dot-danger { background: #ef4444; }
+  .dot-purple { background: #6366f1; }
+
+  .edit-btn { font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 7px; background: #f7f7f8; color: #697586; border: 1px solid #ebebf0; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .edit-btn:hover { background: #f0f0ff; color: #6366f1; border-color: #c7c7ff; }
+
+  .address-found { font-size: 11px; color: #16a34a; font-weight: 500; }
+  .address-partial { font-size: 11px; color: #d97706; font-weight: 500; }
+  .address-missing { font-size: 11px; color: #dc2626; }
+
+  /* LETTER PREVIEW */
+  .letter-preview-grid { display: grid; grid-template-columns: 1fr 380px; gap: 16px; }
+
+  .letter-list { display: flex; flex-direction: column; gap: 8px; }
+  .letter-item { background: #fff; border: 1px solid #ebebf0; border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; transition: border-color 0.1s; }
+  .letter-item:hover, .letter-item.selected { border-color: #6366f1; background: #fafaff; }
+  .letter-item-left { flex: 1; min-width: 0; }
+  .letter-item-left h4 { font-size: 13px; font-weight: 600; color: #191c1f; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .letter-item-left p { font-size: 11px; color: #697586; }
+  .letter-item-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .cb { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid #6366f1; background: #f0f0ff; display: inline-flex; align-items: center; justify-content: center; }
+  .cb::after { content: '✓'; font-size: 10px; color: #6366f1; font-weight: 800; }
+  .cb-empty { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid #e0e0ea; background: #fff; display: inline-block; }
+
+  /* LETTER DOC */
+  .letter-doc { background: #fff; border: 1px solid #ebebf0; border-radius: 16px; overflow: hidden; }
+  .letter-doc-header { padding: 14px 18px; border-bottom: 1px solid #ebebf0; display: flex; align-items: center; justify-content: space-between; }
+  .letter-doc-header h4 { font-size: 13px; font-weight: 600; color: #191c1f; }
+  .letter-doc-body { padding: 24px; }
+  .letter-page { background: #fff; border: 1px solid #f0f0f5; border-radius: 8px; padding: 28px; font-size: 11px; line-height: 1.7; color: #333; min-height: 420px; }
+  .letter-sender { font-size: 11px; font-weight: 600; color: #191c1f; margin-bottom: 2px; }
+  .letter-sender-sub { font-size: 10px; color: #697586; margin-bottom: 20px; }
+  .letter-recipient { font-size: 11px; color: #191c1f; margin-bottom: 20px; padding-left: 180px; }
+  .letter-city-date { font-size: 10px; color: #697586; margin-bottom: 16px; }
+  .letter-subject { font-size: 11px; font-weight: 700; color: #191c1f; margin-bottom: 14px; }
+  .letter-body { font-size: 11px; color: #444; line-height: 1.7; }
+  .letter-body p { margin-bottom: 10px; }
+  .highlight { background: #fef3c7; padding: 1px 3px; border-radius: 2px; }
+  .letter-sign { margin-top: 20px; font-size: 11px; color: #444; }
+  .letter-actions { padding: 14px 18px; border-top: 1px solid #f5f5f7; display: flex; gap: 8px; }
+  .la-btn { font-size: 11px; font-weight: 600; padding: 7px 12px; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; border: none; display: flex; align-items: center; gap: 6px; }
+  .la-primary { background: #191c1f; color: #fff; }
+  .la-ghost { background: #f7f7f8; color: #697586; border: 1px solid #ebebf0; }
+  .la-purple { background: #f0f0ff; color: #6366f1; }
+
+  .batch-bar { background: #fff; border: 1px solid #ebebf0; border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .batch-bar-left { font-size: 13px; font-weight: 600; color: #191c1f; }
+  .batch-bar-left span { font-weight: 400; color: #697586; margin-left: 6px; }
+  .batch-actions { display: flex; gap: 8px; }
+  .ba-btn { font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 9px; cursor: pointer; font-family: 'Inter', sans-serif; border: none; display: flex; align-items: center; gap: 6px; }
+  .ba-pdf { background: #f7f7f8; color: #191c1f; border: 1px solid #ebebf0; }
+  .ba-lre { background: #f0f0ff; color: #6366f1; border: 1px solid #c7c7ff; }
+  .ba-postal { background: #191c1f; color: #fff; }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-logo">mon<span>ga</span></div>
+  <div class="nav-section">
+    <div class="nav-label">Gestion</div>
+    <div class="nav-item"><span class="nav-icon">🏢</span> Biens</div>
+    <div class="nav-item"><span class="nav-icon">📋</span> Missions</div>
+    <div class="nav-item active"><span class="nav-icon">🔧</span> Contrats</div>
+    <div class="nav-item"><span class="nav-icon">👥</span> Prestataires</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="page-header">
+    <div>
+      <h1>Génération des lettres de dénonciation</h1>
+      <p>Sprint 3 · Enrichissement prestataires + lettres recommandées</p>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost">← Retour au tableau</button>
+    </div>
+  </div>
+
+  <!-- STEPPER -->
+  <div class="stepper">
+    <div class="step step-done">
+      <div class="step-circle">✓</div>
+      <div class="step-label">Sélection contrats</div>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step step-active">
+      <div class="step-circle">2</div>
+      <div class="step-label">Enrichissement prestataires</div>
+    </div>
+    <div class="step-line"></div>
+    <div class="step step-pending">
+      <div class="step-circle">3</div>
+      <div class="step-label">Génération lettres</div>
+    </div>
+    <div class="step-line"></div>
+    <div class="step step-pending">
+      <div class="step-circle">4</div>
+      <div class="step-label">Envoi</div>
+    </div>
+  </div>
+
+  <!-- ENRICHISSEMENT -->
+  <div class="section-label" style="margin-top:0;">Étape 2 · Vérification des adresses prestataires</div>
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Prestataire (libellé Excel)</th>
+          <th>Adresse trouvée (Pappers / SIRENE)</th>
+          <th>Fiabilité</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-main">Midi Aquitaine Étanchéité MAE</td>
+          <td><span class="address-found">ZA de Montbartier, 82000 Montauban</span></td>
+          <td><span class="enrich-status es-ok"><span class="dot dot-ok"></span>Trouvé</span></td>
+          <td><button class="edit-btn">Modifier</button></td>
+        </tr>
+        <tr>
+          <td class="td-main">Plagnol Espaces Verts</td>
+          <td><span class="address-found">120 Chemin des Costières, 13800 Istres</span></td>
+          <td><span class="enrich-status es-ok"><span class="dot dot-ok"></span>Trouvé</span></td>
+          <td><button class="edit-btn">Modifier</button></td>
+        </tr>
+        <tr>
+          <td class="td-main">Engie Énergie Services</td>
+          <td><span class="address-found">1 Place Samuel de Champlain, 92400 Courbevoie</span></td>
+          <td><span class="enrich-status es-ok"><span class="dot dot-ok"></span>Trouvé</span></td>
+          <td><button class="edit-btn">Modifier</button></td>
+        </tr>
+        <tr>
+          <td class="td-main">Netto-Decor</td>
+          <td><span class="address-partial">5 Rue des Artisans, 72000 Le Mans <em style="color:#b0b0bd;">(à confirmer)</em></span></td>
+          <td><span class="enrich-status es-partial"><span class="dot dot-warn"></span>Partiel</span></td>
+          <td><button class="edit-btn" style="background:#fffbeb; border-color:#fde68a; color:#d97706;">Confirmer</button></td>
+        </tr>
+        <tr>
+          <td class="td-main">Rennes Clair Nettoyage</td>
+          <td><span class="address-missing">Non trouvé automatiquement</span></td>
+          <td><span class="enrich-status es-missing"><span class="dot dot-danger"></span>Manquant</span></td>
+          <td><button class="edit-btn" style="background:#fef2f2; border-color:#fecaca; color:#dc2626;">Saisir manuellement</button></td>
+        </tr>
+        <tr>
+          <td class="td-main">Goron GSL</td>
+          <td><span class="address-found">14 Allée des Chênes, 50100 Cherbourg</span></td>
+          <td><span class="enrich-status es-ok"><span class="dot dot-ok"></span>Trouvé</span></td>
+          <td><button class="edit-btn">Modifier</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:28px;">
+    <p style="font-size:12px; color:#697586;">5 sur 6 adresses trouvées · 1 à saisir manuellement avant de continuer</p>
+    <button class="btn btn-primary">Continuer → Générer les lettres</button>
+  </div>
+
+  <!-- LETTRE PREVIEW -->
+  <div class="section-label">Étape 3 · Lettres générées (aperçu)</div>
+
+  <div class="batch-bar">
+    <div class="batch-bar-left">6 lettres générées <span>— sélectionnez pour envoyer en batch</span></div>
+    <div class="batch-actions">
+      <button class="ba-btn ba-pdf">📄 Tout télécharger en PDF</button>
+      <button class="ba-btn ba-lre">⚡ Envoyer en LRE (AR24)</button>
+      <button class="ba-btn ba-postal">📮 Envoyer en recommandé postal</button>
+    </div>
+  </div>
+
+  <div class="letter-preview-grid">
+
+    <div class="letter-list">
+      <div class="letter-item selected">
+        <div class="letter-item-left">
+          <h4>Midi Aquitaine Étanchéité · Montauban</h4>
+          <p>Entretien toiture · 1 200 €/an · Fin 31/12/2025 · ⚠️ Délai dépassé</p>
+        </div>
+        <div class="letter-item-right">
+          <span style="font-size:10px; background:#fef2f2; color:#dc2626; font-weight:700; padding:3px 7px; border-radius:5px;">Reconduit</span>
+          <div class="cb"></div>
+        </div>
+      </div>
+      <div class="letter-item">
+        <div class="letter-item-left">
+          <h4>Plagnol Espaces Verts · Istres</h4>
+          <p>Espaces verts · 6 960 €/an · Dénonciation avant 30/09/2026</p>
+        </div>
+        <div class="letter-item-right">
+          <span style="font-size:10px; background:#fffbeb; color:#d97706; font-weight:700; padding:3px 7px; border-radius:5px;">5 mois</span>
+          <div class="cb"></div>
+        </div>
+      </div>
+      <div class="letter-item">
+        <div class="letter-item-left">
+          <h4>Engie Énergie Services · Antibes</h4>
+          <p>Maintenance P2/P3 · 475 590 €/an · Dénonciation avant 30/09/2026</p>
+        </div>
+        <div class="letter-item-right">
+          <span style="font-size:10px; background:#fffbeb; color:#d97706; font-weight:700; padding:3px 7px; border-radius:5px;">5 mois</span>
+          <div class="cb-empty"></div>
+        </div>
+      </div>
+      <div class="letter-item">
+        <div class="letter-item-left">
+          <h4>Netto-Decor · Arconnay</h4>
+          <p>Entretien parking · 12 260 €/an · Fin 31/03/2026 · ⚠️ Délai dépassé</p>
+        </div>
+        <div class="letter-item-right">
+          <span style="font-size:10px; background:#fef2f2; color:#dc2626; font-weight:700; padding:3px 7px; border-radius:5px;">Reconduit</span>
+          <div class="cb"></div>
+        </div>
+      </div>
+      <div class="letter-item">
+        <div class="letter-item-left">
+          <h4>Rennes Clair Nettoyage · Rennes</h4>
+          <p>Nettoyage intérieur · 19 800 €/an · Dénonciation avant 30/09/2026</p>
+        </div>
+        <div class="letter-item-right">
+          <span style="font-size:10px; background:#f0fdf7; color:#16a34a; font-weight:700; padding:3px 7px; border-radius:5px;">OK</span>
+          <div class="cb-empty"></div>
+        </div>
+      </div>
+      <div class="letter-item">
+        <div class="letter-item-left">
+          <h4>Goron GSL · Cherbourg</h4>
+          <p>Sécurité gardiennage · 374 771 €/an · Dénonciation avant 30/10/2026</p>
+        </div>
+        <div class="letter-item-right">
+          <span style="font-size:10px; background:#f0fdf7; color:#16a34a; font-weight:700; padding:3px 7px; border-radius:5px;">OK</span>
+          <div class="cb-empty"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LETTRE DOC -->
+    <div class="letter-doc">
+      <div class="letter-doc-header">
+        <h4>Aperçu · Midi Aquitaine Étanchéité</h4>
+        <button class="edit-btn">✏️ Modifier</button>
+      </div>
+      <div class="letter-doc-body">
+        <div class="letter-page">
+          <div class="letter-sender">SCI DU PÈRE LÉONID</div>
+          <div class="letter-sender-sub">285 Av. du Père Léonid Chrol · 82000 Montauban</div>
+
+          <div class="letter-recipient">
+            Midi Aquitaine Étanchéité MAE<br>
+            ZA de Montbartier<br>
+            82000 Montauban
+          </div>
+
+          <div class="letter-city-date">Montauban, le 15 avril 2026</div>
+          <div style="font-size:10px;color:#b0b0bd;margin-bottom:16px;">Envoi par lettre recommandée avec AR</div>
+
+          <div class="letter-subject">Objet : Résiliation du contrat d'entretien toiture<br>Réf. contrat · Propriété <span class="highlight">00000076</span></div>
+
+          <div class="letter-body">
+            <p>Madame, Monsieur,</p>
+            <p>Nous vous informons par la présente de notre décision de <strong>ne pas renouveler</strong> le contrat d'entretien de toiture conclu entre nos parties, dont l'échéance est fixée au <span class="highlight">31 décembre 2025</span>.</p>
+            <p>Conformément aux stipulations contractuelles prévoyant un délai de préavis de <span class="highlight">3 mois</span>, nous vous notifions formellement cette résiliation.</p>
+            <p>Nous vous remercions des services rendus dans le cadre de ce contrat et restons disponibles pour convenir des modalités de fin de prestation.</p>
+            <div class="letter-sign">
+              <p>Veuillez agréer, Madame, Monsieur, l'expression de nos salutations distinguées.</p>
+              <br>
+              <p style="font-weight:600;">Pour SCI du Père Léonid</p>
+              <p style="color:#b0b0bd;">Le Gestionnaire</p>
+              <div style="margin-top:16px;width:80px;height:1px;background:#e0e0ea;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="letter-actions">
+        <button class="la-btn la-primary">📄 Télécharger PDF</button>
+        <button class="la-btn la-purple">⚡ LRE via AR24</button>
+        <button class="la-btn la-ghost">📮 Postal (Maileva)</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

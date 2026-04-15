@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MONGA × IAD — Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #070f1e;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: #fff;
+  padding: 40px 0;
+}
+
+/* ── SLIDE BASE ── */
+.slide {
+  width: 960px;
+  height: 540px;
+  margin: 0 auto 32px;
+  position: relative;
+  overflow: hidden;
+  background: #0d1f4e;
+  border-radius: 12px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* ── LABEL ── */
+.slide-label {
+  width: 960px;
+  margin: 0 auto 48px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.3);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.slide-label::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* ── COLORS ── */
+:root {
+  --orange: #ff7832;
+  --gold: #d4af37;
+  --blue-dark: #0d1f4e;
+  --blue-mid: #0b2254;
+  --blue-glow: rgba(13,31,78,0.0);
+}
+
+/* ── COMMON ── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,120,50,0.12);
+  border: 1px solid rgba(255,120,50,0.3);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.tag.gold {
+  background: rgba(212,175,55,0.1);
+  border-color: rgba(212,175,55,0.3);
+  color: var(--gold);
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════
+   SLIDE 1 — COVER
+═══════════════════════════════════ */
+#s1 {
+  background: linear-gradient(135deg, #08162e 0%, #0d1f4e 50%, #0a1a3d 100%);
+}
+#s1 .bg-glow {
+  position: absolute;
+  top: -100px; right: -80px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,120,50,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+#s1 .bg-glow2 {
+  position: absolute;
+  bottom: -80px; left: -60px;
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(43,100,255,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+#s1 .grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+#s1 .content {
+  position: relative;
+  z-index: 2;
+  padding: 52px 64px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#s1 .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+#s1 .logo-monga {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: #fff;
+}
+#s1 .logo-iad {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.7;
+}
+#s1 .logo-iad img {
+  height: 28px;
+  filter: brightness(0) invert(1);
+  object-fit: contain;
+}
+#s1 .logo-iad-fallback {
+  font-size: 14px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 1px;
+}
+#s1 .mid {
+  max-width: 580px;
+}
+#s1 .eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+#s1 h1 {
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  color: #fff;
+  margin-bottom: 0;
+}
+#s1 h1 span { color: var(--orange); }
+#s1 .separator {
+  width: 48px; height: 3px;
+  background: var(--orange);
+  border-radius: 2px;
+  margin: 20px 0;
+}
+#s1 .tagline {
+  font-size: 16px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 480px;
+}
+#s1 .bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+#s1 .presenter {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.7;
+}
+#s1 .presenter strong {
+  color: rgba(255,255,255,0.75);
+  font-weight: 700;
+  font-size: 13px;
+  display: block;
+  margin-bottom: 2px;
+}
+#s1 .date-badge {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: right;
+}
+
+/* ═══════════════════════════════════
+   SLIDE 2 — PROBLÈME
+═══════════════════════════════════ */
+#s2 {
+  background: #0a1628;
+}
+#s2 .accent-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange) 0%, transparent 65%);
+}
+#s2 .bg-number {
+  position: absolute;
+  right: -20px; top: -10px;
+  font-size: 280px;
+  font-weight: 900;
+  color: rgba(255,120,50,0.04);
+  line-height: 1;
+  letter-spacing: -8px;
+  pointer-events: none;
+  user-select: none;
+}
+#s2 .content {
+  position: relative;
+  z-index: 2;
+  padding: 52px 64px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+#s2 .eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+#s2 .stat-block {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+#s2 .big-stat {
+  font-size: 96px;
+  font-weight: 900;
+  color: var(--orange);
+  line-height: 1;
+  letter-spacing: -3px;
+}
+#s2 .stat-desc {
+  font-size: 22px;
+  color: rgba(255,255,255,0.75);
+  font-weight: 500;
+  line-height: 1.3;
+  max-width: 360px;
+}
+#s2 .separator {
+  width: 48px; height: 2px;
+  background: rgba(255,255,255,0.1);
+}
+#s2 .conclusion {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+#s2 .conclusion-text {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+#s2 .conclusion-badge {
+  background: var(--orange);
+  color: #fff;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════
+   SLIDE 3 — À PROPOS MONGA
+═══════════════════════════════════ */
+#s3 .accent-bar {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 5px;
+  background: linear-gradient(180deg, var(--orange), var(--gold));
+}
+#s3 .content {
+  position: relative;
+  z-index: 2;
+  padding: 44px 56px 44px 60px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+#s3 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+#s3 h2 {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+#s3 .founding {
+  font-size: 15px;
+  color: rgba(255,255,255,0.55);
+  max-width: 420px;
+  line-height: 1.5;
+}
+#s3 .founding strong { color: #fff; font-weight: 700; }
+#s3 .kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  flex: 1;
+}
+#s3 .kpi-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.2s;
+}
+#s3 .kpi-card.highlight {
+  background: rgba(255,120,50,0.08);
+  border-color: rgba(255,120,50,0.25);
+}
+#s3 .kpi-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+#s3 .kpi-value {
+  font-size: 32px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+#s3 .kpi-card.highlight .kpi-value { color: var(--orange); }
+#s3 .kpi-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+#s3 .founders {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+#s3 .founder-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  flex-shrink: 0;
+}
+#s3 .founder-names {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════
+   SLIDE 4 — PROCESS
+═══════════════════════════════════ */
+#s4 {
+  background: #0a1628;
+}
+#s4 .top-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange) 0%, var(--gold) 100%);
+}
+#s4 .content {
+  position: relative;
+  z-index: 2;
+  padding: 40px 52px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+#s4 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#s4 h2 {
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+#s4 .time-badge {
+  background: rgba(255,120,50,0.12);
+  border: 1px solid rgba(255,120,50,0.3);
+  border-radius: 20px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#s4 .time-badge .num {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--orange);
+  letter-spacing: -0.5px;
+}
+#s4 .time-badge .unit {
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+#s4 .steps {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  flex: 1;
+  position: relative;
+}
+#s4 .step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+#s4 .step-connector {
+  position: absolute;
+  top: 24px;
+  left: 50%; right: -50%;
+  height: 2px;
+  background: rgba(255,255,255,0.08);
+  z-index: 0;
+}
+#s4 .step:last-child .step-connector { display: none; }
+#s4 .step-connector-fill {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), rgba(255,120,50,0.3));
+}
+#s4 .step-num {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: rgba(255,120,50,0.12);
+  border: 2px solid rgba(255,120,50,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--orange);
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  margin-bottom: 14px;
+}
+#s4 .step.done .step-num {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+#s4 .step-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 6px;
+}
+#s4 .step-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  line-height: 1.4;
+}
+#s4 .bottom-note {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+}
+#s4 .note-item {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#s4 .note-item::before {
+  content: '✓';
+  color: var(--orange);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* ═══════════════════════════════════
+   SLIDE 5 — RÉFÉRENCES CLIENTS
+═══════════════════════════════════ */
+#s5 {
+  background: linear-gradient(135deg, #0a1628 0%, #0d1f4e 100%);
+}
+#s5 .accent-line {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange) 0%, var(--gold) 50%, transparent 100%);
+}
+#s5 .content {
+  position: relative;
+  z-index: 2;
+  padding: 44px 56px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+#s5 .header { }
+#s5 h2 {
+  font-size: 26px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+#s5 .subtitle {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  font-weight: 400;
+}
+#s5 .kpi-row {
+  display: flex;
+  gap: 24px;
+}
+#s5 .mini-kpi {
+  display: flex;
+  flex-direction: column;
+}
+#s5 .mini-kpi .val {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--orange);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+#s5 .mini-kpi .lbl {
+  font-size: 9px;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 3px;
+}
+#s5 .divider {
+  width: 1px;
+  background: rgba(255,255,255,0.08);
+  align-self: stretch;
+}
+#s5 .logos-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+#s5 .logos-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+#s5 .logos-grid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+#s5 .logo-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 8px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  height: 52px;
+  transition: border-color 0.2s;
+}
+#s5 .logo-card img {
+  max-height: 24px;
+  max-width: 100px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.65;
+}
+#s5 .logo-card .logo-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  line-height: 1.2;
+}
+#s5 .more-clients {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  font-style: italic;
+  padding: 6px 0;
+}
+
+/* ── Navigation ── */
+.nav {
+  width: 960px;
+  margin: -16px auto 48px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+}
+.nav-dot.active {
+  background: var(--orange);
+  width: 20px;
+  border-radius: 3px;
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     SLIDE 1 — COVER
+══════════════════════════════════════ -->
+<div class="slide-label">Slide 1 · Cover</div>
+<div class="slide" id="s1">
+  <div class="bg-glow"></div>
+  <div class="bg-glow2"></div>
+  <div class="grid-lines"></div>
+  <div class="content">
+    <div class="top">
+      <div class="logo-monga">MONGA</div>
+      <div class="logo-iad">
+        <img src="https://logo.clearbit.com/iadfrance.fr" alt="IAD"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="logo-iad-fallback" style="display:none;">× IAD</div>
+      </div>
+    </div>
+    <div class="mid">
+      <div class="eyebrow">Présentation IAD · Avril 2026</div>
+      <h1>La maintenance<br>multitechnique<br>pilotée par <span>l'IA.</span></h1>
+      <div class="separator"></div>
+      <div class="tagline">La plateforme de maintenance multitechnique<br>pour les professionnels de l'immobilier.</div>
+    </div>
+    <div class="bottom">
+      <div class="presenter">
+        <strong>Avidan Koubi</strong>
+        Co-fondateur & CEO, Groupe Monga<br>
+        avidan@monga.io
+      </div>
+      <div class="date-badge">
+        CONFIDENTIEL<br>Avril 2026
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 2 — PROBLÈME
+══════════════════════════════════════ -->
+<div class="slide-label">Slide 2 · Le problème</div>
+<div class="slide" id="s2">
+  <div class="accent-line"></div>
+  <div class="bg-number">70</div>
+  <div class="content">
+    <div class="eyebrow">La réalité terrain</div>
+    <div class="stat-block">
+      <div class="big-stat">50–70%</div>
+      <div class="stat-desc">du temps d'un gestionnaire locatif absorbé par la gestion technique.</div>
+    </div>
+    <div class="separator"></div>
+    <div class="conclusion">
+      <div class="conclusion-text">Monga règle ça.</div>
+      <div class="conclusion-badge">Solution →</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 3 — À PROPOS MONGA
+══════════════════════════════════════ -->
+<div class="slide-label">Slide 3 · Monga en chiffres</div>
+<div class="slide" id="s3">
+  <div class="accent-bar"></div>
+  <div class="content">
+    <div class="header">
+      <h2>MONGA — 5 ans de terrain au service des pros</h2>
+      <div class="tag">Né en 2020</div>
+    </div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.5;max-width:580px;">
+      Né d'un constat simple : <strong style="color:rgba(255,255,255,0.8);">un locataire mal servi = un mandat perdu.</strong>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card highlight">
+        <div class="kpi-label">Clients actifs</div>
+        <div>
+          <div class="kpi-value">324+</div>
+          <div class="kpi-sub">Professionnels de l'immobilier</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Surface sous pilotage</div>
+        <div>
+          <div class="kpi-value">7,5M</div>
+          <div class="kpi-sub">m² tertiaire</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Réseau artisans</div>
+        <div>
+          <div class="kpi-value">4 700+</div>
+          <div class="kpi-sub">Partenaires, France entière</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Équipe</div>
+        <div>
+          <div class="kpi-value">35</div>
+          <div class="kpi-sub">Collaborateurs, Paris</div>
+        </div>
+      </div>
+      <div class="kpi-card highlight">
+        <div class="kpi-label">Modèle</div>
+        <div>
+          <div class="kpi-value" style="font-size:20px;">#1</div>
+          <div class="kpi-sub">PropTech maintenance France</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Modèle</div>
+        <div>
+          <div class="kpi-value" style="font-size:20px;">SaaS</div>
+          <div class="kpi-sub">+ exécution asset-light (MT Services)</div>
+        </div>
+      </div>
+    </div>
+    <div class="founders">
+      <div class="founder-label">Fondateurs</div>
+      <div class="founder-names">Avidan Koubi (IB/RE) · Kevin Valensi (ex-Doctolib, Centrale Paris)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 4 — PROCESS
+══════════════════════════════════════ -->
+<div class="slide-label">Slide 4 · De l'incident à la clôture</div>
+<div class="slide" id="s4">
+  <div class="top-bar"></div>
+  <div class="content">
+    <div class="header">
+      <h2>De l'incident à la clôture — automatiquement</h2>
+      <div class="time-badge">
+        <div class="num">&lt; 24h</div>
+        <div class="unit">délai moyen</div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step done">
+        <div class="step-connector"><div class="step-connector-fill" style="width:100%;"></div></div>
+        <div class="step-num">01</div>
+        <div class="step-title">Déclaration</div>
+        <div class="step-sub">App ou<br>téléphone</div>
+      </div>
+      <div class="step done">
+        <div class="step-connector"><div class="step-connector-fill" style="width:100%;"></div></div>
+        <div class="step-num">02</div>
+        <div class="step-title">Qualification</div>
+        <div class="step-sub">MonAI analyse<br>& catégorise</div>
+      </div>
+      <div class="step done">
+        <div class="step-connector"><div class="step-connector-fill" style="width:100%;"></div></div>
+        <div class="step-num">03</div>
+        <div class="step-title">Arbitrage</div>
+        <div class="step-sub">Gestionnaire<br>valide en 1 clic</div>
+      </div>
+      <div class="step done">
+        <div class="step-connector"><div class="step-connector-fill" style="width:60%;"></div></div>
+        <div class="step-num">04</div>
+        <div class="step-title">Dispatch</div>
+        <div class="step-sub">Meilleur artisan<br>sélectionné</div>
+      </div>
+      <div class="step">
+        <div class="step-connector"></div>
+        <div class="step-num" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.12);color:rgba(255,255,255,0.3);">05</div>
+        <div class="step-title" style="color:rgba(255,255,255,0.5);">Devis</div>
+        <div class="step-sub">Validation<br>en 1 clic</div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.12);color:rgba(255,255,255,0.3);">06</div>
+        <div class="step-title" style="color:rgba(255,255,255,0.5);">Clôture</div>
+        <div class="step-sub">Rapport +<br>KPI mis à jour</div>
+      </div>
+    </div>
+
+    <div class="bottom-note">
+      <div class="note-item">Délai moyen ÷ 3 vs. gestion manuelle</div>
+      <div class="note-item">0 relance artisan</div>
+      <div class="note-item">100% traçable</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 5 — RÉFÉRENCES CLIENTS
+══════════════════════════════════════ -->
+<div class="slide-label">Slide 5 · Références clients</div>
+<div class="slide" id="s5">
+  <div class="accent-line"></div>
+  <div class="content">
+    <div class="header">
+      <h2>Ils nous font confiance</h2>
+      <div class="subtitle">324+ professionnels de l'immobilier — foncières, asset managers, property managers, institutionnels</div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="mini-kpi"><div class="val">324+</div><div class="lbl">Clients actifs</div></div>
+      <div class="divider"></div>
+      <div class="mini-kpi"><div class="val">7,5M</div><div class="lbl">m² sous pilotage</div></div>
+      <div class="divider"></div>
+      <div class="mini-kpi"><div class="val">4 700+</div><div class="lbl">Artisans réseau</div></div>
+      <div class="divider"></div>
+      <div class="mini-kpi"><div class="val" style="color:var(--gold);">−32%</div><div class="lbl">Attrition mandats</div></div>
+    </div>
+
+    <div class="logos-section">
+      <div class="logos-label">Références clients</div>
+      <div class="logos-grid">
+
+        <div class="logo-card">
+          <img src="https://logo.clearbit.com/groupe-duval.com" alt="Groupe Duval"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="logo-text" style="display:none;">Groupe<br>Duval</div>
+        </div>
+
+        <div class="logo-card">
+          <img src="https://logo.clearbit.com/aeweurope.com" alt="AEW Europe"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="logo-text" style="display:none;">AEW<br>Europe</div>
+        </div>
+
+        <div class="logo-card">
+          <img src="https://logo.clearbit.com/covea.fr" alt="Covéa Immobilier"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="logo-text" style="display:none;">Covéa<br>Immobilier</div>
+        </div>
+
+        <div class="logo-card">
+          <img src="https://logo.clearbit.com/momagroup.fr" alt="Moma Group"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="logo-text" style="display:none;">Moma<br>Group</div>
+        </div>
+
+        <div class="logo-card">
+          <img src="https://logo.clearbit.com/sgl-immobilier.fr" alt="SGL Immobilier"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="logo-text" style="display:none;">SGL<br>Immobilier</div>
+        </div>
+
+        <div class="logo-card">
+          <img src="https://logo.clearbit.com/captureamenagement.com" alt="Capture AM"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="logo-text" style="display:none;">Capture<br>AM</div>
+        </div>
+
+      </div>
+      <div class="more-clients">+ 318 autres professionnels de l'immobilier à travers la France</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

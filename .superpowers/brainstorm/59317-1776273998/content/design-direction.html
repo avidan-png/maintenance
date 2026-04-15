@@ -1,0 +1,109 @@
+<h2>Quelle direction esthétique vous attire le plus ?</h2>
+<p class="subtitle">Cliquez sur le(s) style(s) qui vous parlent — vous pouvez en sélectionner plusieurs</p>
+
+<div class="cards" data-multiselect>
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0a0a0a; padding:20px; min-height:180px; display:flex; flex-direction:column; gap:10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div style="width:60px; height:8px; background:#fff; border-radius:2px;"></div>
+        <div style="width:30px; height:8px; background:#888; border-radius:2px;"></div>
+      </div>
+      <div style="height:3px; background:linear-gradient(90deg,#fff 40%,transparent 100%); margin-bottom:12px;"></div>
+      <div style="font-size:22px; font-weight:900; color:#fff; letter-spacing:-1px; font-family:serif;">The Future<br>of Growth</div>
+      <div style="flex:1; display:flex; align-items:flex-end; gap:6px;">
+        <div style="height:60px; width:18px; background:#fff; border-radius:2px;"></div>
+        <div style="height:90px; width:18px; background:#fff; border-radius:2px;"></div>
+        <div style="height:45px; width:18px; background:#444; border-radius:2px;"></div>
+        <div style="height:110px; width:18px; background:#fff; border-radius:2px;"></div>
+        <div style="height:75px; width:18px; background:#666; border-radius:2px;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Dark Premium</h3>
+      <p>Fond noir, typographie bold, accents blancs. Style tech / fintech / luxe. Apple, Figma, Tesla.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f5f3ee; padding:20px; min-height:180px; display:flex; flex-direction:column; gap:10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div style="width:50px; height:6px; background:#1a1a1a; border-radius:1px;"></div>
+        <div style="width:25px; height:6px; background:#999; border-radius:1px;"></div>
+      </div>
+      <div style="font-size:13px; font-weight:700; color:#888; letter-spacing:3px; text-transform:uppercase;">STRATÉGIE 2025</div>
+      <div style="font-size:20px; font-weight:800; color:#1a1a1a; letter-spacing:-0.5px; line-height:1.2;">Accélérer la<br>transformation</div>
+      <div style="width:40px; height:3px; background:#c8a96e; margin:8px 0;"></div>
+      <div style="display:flex; gap:8px; margin-top:auto;">
+        <div style="flex:1; background:#e8e2d8; border-radius:4px; padding:8px 6px;">
+          <div style="width:80%; height:5px; background:#c8a96e; border-radius:2px; margin-bottom:4px;"></div>
+          <div style="width:60%; height:4px; background:#ccc; border-radius:2px;"></div>
+        </div>
+        <div style="flex:1; background:#e8e2d8; border-radius:4px; padding:8px 6px;">
+          <div style="width:70%; height:5px; background:#1a1a1a; border-radius:2px; margin-bottom:4px;"></div>
+          <div style="width:50%; height:4px; background:#ccc; border-radius:2px;"></div>
+        </div>
+        <div style="flex:1; background:#e8e2d8; border-radius:4px; padding:8px 6px;">
+          <div style="width:90%; height:5px; background:#c8a96e; border-radius:2px; margin-bottom:4px;"></div>
+          <div style="width:65%; height:4px; background:#ccc; border-radius:2px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Warm Editorial</h3>
+      <p>Beige, or, noir. Élégant et chaleureux. Cabinets de conseil haut de gamme, luxury brands.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff; padding:20px; min-height:180px; display:flex; flex-direction:column; gap:10px; border:1px solid #e8e8e8;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <div style="width:45px; height:6px; background:#005eff; border-radius:1px;"></div>
+        <div style="width:22px; height:6px; background:#ddd; border-radius:1px;"></div>
+      </div>
+      <div style="font-size:11px; font-weight:700; color:#005eff; letter-spacing:2px; text-transform:uppercase;">MARKET OVERVIEW</div>
+      <div style="font-size:19px; font-weight:800; color:#111; letter-spacing:-0.5px;">Market leadership<br>through data</div>
+      <div style="display:flex; gap:6px; flex:1; align-items:flex-end;">
+        <div style="flex:1; display:flex; flex-direction:column; gap:3px;">
+          <div style="height:4px; background:#ddd; border-radius:1px;"></div>
+          <div style="height:4px; background:#005eff; border-radius:1px; width:75%;"></div>
+          <div style="height:4px; background:#ddd; border-radius:1px; width:90%;"></div>
+        </div>
+        <div style="width:70px; height:70px; border-radius:50%; border:8px solid #005eff; display:flex; align-items:center; justify-content:center;">
+          <div style="font-size:13px; font-weight:900; color:#005eff;">73%</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Corporate Bold</h3>
+      <p>Blanc, bleu vif, noir. Précision et impact. McKinsey, BCG, Bain. Très lisible en salle.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="D" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:linear-gradient(135deg,#1a0533 0%,#2d0a5e 50%,#0d1b4b 100%); padding:20px; min-height:180px; display:flex; flex-direction:column; gap:10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <div style="width:55px; height:6px; background:rgba(255,255,255,0.7); border-radius:1px;"></div>
+        <div style="display:flex; gap:4px;">
+          <div style="width:6px; height:6px; background:#ff6b9d; border-radius:50%;"></div>
+          <div style="width:6px; height:6px; background:#ffb347; border-radius:50%;"></div>
+          <div style="width:6px; height:6px; background:#47d3ff; border-radius:50%;"></div>
+        </div>
+      </div>
+      <div style="font-size:11px; font-weight:600; color:#ff6b9d; letter-spacing:2px; text-transform:uppercase;">INNOVATION LAB</div>
+      <div style="font-size:18px; font-weight:800; color:#fff; letter-spacing:-0.5px; line-height:1.3;">Disrupting the<br>next decade</div>
+      <div style="display:flex; gap:8px; margin-top:auto; align-items:flex-end;">
+        <div style="height:50px; width:14px; background:linear-gradient(180deg,#ff6b9d,#ffb347); border-radius:3px; opacity:0.9;"></div>
+        <div style="height:80px; width:14px; background:linear-gradient(180deg,#47d3ff,#7b61ff); border-radius:3px; opacity:0.9;"></div>
+        <div style="height:35px; width:14px; background:linear-gradient(180deg,#ffb347,#ff6b9d); border-radius:3px; opacity:0.9;"></div>
+        <div style="height:95px; width:14px; background:linear-gradient(180deg,#7b61ff,#47d3ff); border-radius:3px; opacity:0.9;"></div>
+        <div style="height:60px; width:14px; background:linear-gradient(180deg,#ff6b9d,#7b61ff); border-radius:3px; opacity:0.9;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Gradient Modern</h3>
+      <p>Violet foncé, dégradés colorés, néon. Startup, tech, VC pitches. Mémorable et audacieux.</p>
+    </div>
+  </div>
+
+</div>
