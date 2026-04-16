@@ -6,7 +6,7 @@
     (ngModelChange)="onChange($event)"
     class="preavis-select"
   >
-    <option *ngFor="let opt of options" [value]="opt">{{ opt }} mois</option>
+    <option *ngFor="let opt of options" [ngValue]="opt">{{ opt }} mois</option>
   </select>
   <span class="preavis-note">Modifiable par contrat · Appliqué à l'import</span>
 </div>
