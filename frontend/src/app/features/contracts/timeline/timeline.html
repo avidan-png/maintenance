@@ -1,0 +1,55 @@
+<!-- frontend/src/app/features/contracts/timeline/timeline.html -->
+<div class="timeline-card">
+  <div class="timeline-header">
+    <h3>Dates limites de dénonciation — {{ currentYear }}</h3>
+    <span>● = date limite de dénonciation &nbsp;|&nbsp; barre = durée du contrat</span>
+  </div>
+
+  <!-- Month headers -->
+  <div class="tl-grid-header">
+    <div class="tl-col-label"></div>
+    <div class="timeline-months">
+      <div
+        *ngFor="let m of MONTHS; let i = index"
+        class="month-label"
+        [class.current]="i === currentMonthIndex"
+      >{{ m }}</div>
+    </div>
+  </div>
+
+  <!-- Rows -->
+  <div class="timeline-grid">
+    <ng-container *ngFor="let row of rows()">
+      <div class="tl-row">
+        <div class="tl-label" [title]="row.label">{{ row.label }}</div>
+        <div class="tl-bar-track">
+          <div class="current-line" [style.left.%]="todayLeft()"></div>
+          <div
+            class="tl-bar"
+            [ngClass]="row.barClass"
+            [style.left.%]="row.barLeft"
+            [style.width.%]="row.barWidth"
+          >{{ row.statusLabel }}</div>
+          <div
+            class="denonce-marker"
+            [ngClass]="row.markerClass"
+            [style.left.%]="row.markerLeft - 0.3"
+          ></div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div *ngIf="rows().length === 0" class="tl-empty">
+      Aucun contrat avec date de fin renseignée.
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="tl-legend">
+    <span class="legend-item"><span class="legend-swatch swatch-danger"></span>Délai dépassé</span>
+    <span class="legend-item"><span class="legend-swatch swatch-warn"></span>À dénoncer bientôt</span>
+    <span class="legend-item"><span class="legend-swatch swatch-ok"></span>Pas d'urgence</span>
+    <span class="legend-item"><span class="legend-dot dot-today"></span>Aujourd'hui</span>
+    <span class="legend-item"><span class="legend-dot dot-marker"></span>Date dénonciation</span>
+  </div>
+</div>
