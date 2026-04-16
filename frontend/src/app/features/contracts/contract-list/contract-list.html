@@ -1,0 +1,41 @@
+<!-- contract-list.component.html -->
+<div class="toolbar">
+  <button
+    class="btn-filter"
+    [class.active]="filterUrgents"
+    (click)="filterUrgents = !filterUrgents"
+  >
+    🔴 Urgents ({{ urgentsCount() }})
+  </button>
+  <span class="total">{{ displayed().length }} contrat(s)</span>
+</div>
+
+<div class="table-wrap">
+  <table class="contracts-table">
+    <thead>
+      <tr>
+        <th>Source</th>
+        <th>Adresse</th>
+        <th>Prestation</th>
+        <th>Prestataire</th>
+        <th>Montant HT/an</th>
+        <th>Date de fin</th>
+        <th class="th-new">Date dénonciation ✦</th>
+        <th class="th-new">Statut ✦</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of displayed()">
+        <td><span class="source-badge">{{ c.source }}</span></td>
+        <td class="td-sub">{{ c.adresse }}</td>
+        <td class="td-main">{{ c.prestation }}</td>
+        <td class="td-sub">{{ c.prestataire }}</td>
+        <td><strong>{{ c.montantHtAnnuel | currency:'EUR':'symbol':'1.0-0' }}</strong></td>
+        <td class="td-muted">{{ c.dateFin | date:'dd/MM/yyyy' }}</td>
+        <td><span [class]="'date-' + c.statutDenonciation">{{ c.dateDenonciation | date:'dd/MM/yyyy' }}</span></td>
+        <td><span [class]="badgeClass(c.statutDenonciation)">{{ badgeLabel(c.statutDenonciation) }}</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="displayed().length === 0" class="empty">Aucun contrat</div>
+</div>

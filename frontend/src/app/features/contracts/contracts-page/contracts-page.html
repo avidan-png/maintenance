@@ -1,0 +1,17 @@
+<!-- contracts-page.component.html -->
+<div class="page">
+  <div class="page-header">
+    <h1>Contrats de maintenance</h1>
+  </div>
+
+  <app-upload-zone
+    [preavisDefault]="preavis()"
+    (contractsUpdated)="loadContracts()"
+  ></app-upload-zone>
+
+  <app-preavis-config
+    (preavisChanged)="preavis.set($event)"
+  ></app-preavis-config>
+
+  <app-contract-list [contracts]="contracts()"></app-contract-list>
+</div>
