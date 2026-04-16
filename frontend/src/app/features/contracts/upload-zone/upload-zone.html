@@ -1,0 +1,25 @@
+<!-- upload-zone.component.html -->
+<div class="import-row">
+  <!-- Carte Excel -->
+  <label class="import-card import-card--excel" [class.loading]="loading">
+    <span class="import-card__icon">📊</span>
+    <div class="import-card__body">
+      <h4>Importer un tableau récap Excel</h4>
+      <p>Multi-feuilles .xlsx · Toutes propriétés en un import</p>
+      <span class="badge badge--new">Nouveau</span>
+    </div>
+    <input type="file" accept=".xlsx,.xls" style="display:none" (change)="onExcelSelected($event)" />
+  </label>
+
+  <!-- Carte PDF (placeholder) -->
+  <div class="import-card import-card--pdf">
+    <span class="import-card__icon">📄</span>
+    <div class="import-card__body">
+      <h4>Importer un contrat PDF</h4>
+      <p>Monga ou externe · Extraction IA</p>
+      <span class="badge badge--existing">Existant</span>
+    </div>
+  </div>
+
+  <div *ngIf="lastResult" class="import-result">{{ lastResult }}</div>
+</div>

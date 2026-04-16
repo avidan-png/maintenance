@@ -1,0 +1,12 @@
+<!-- preavis-config.component.html -->
+<div class="preavis-bar">
+  <span class="preavis-label">Délai de préavis par défaut</span>
+  <select
+    [(ngModel)]="selected"
+    (ngModelChange)="onChange($event)"
+    class="preavis-select"
+  >
+    <option *ngFor="let opt of options" [value]="opt">{{ opt }} mois</option>
+  </select>
+  <span class="preavis-note">Modifiable par contrat · Appliqué à l'import</span>
+</div>
