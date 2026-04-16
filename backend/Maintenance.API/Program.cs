@@ -21,6 +21,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<SettingsService>();
 builder.Services.AddScoped<ContractService>();
+builder.Services.AddScoped<AlertsService>();
 
 builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
 {
