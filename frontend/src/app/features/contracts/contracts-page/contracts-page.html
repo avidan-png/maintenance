@@ -1,17 +1,49 @@
-<!-- contracts-page.component.html -->
-<div class="page">
-  <div class="page-header">
-    <h1>Contrats de maintenance</h1>
+<!-- frontend/src/app/features/contracts/contracts-page/contracts-page.html -->
+<div class="page-header">
+  <div>
+    <h1>Pilotage des dénonciation</h1>
+    <p>Gérez vos contrats de maintenance et leurs dates de reconduction tacite.</p>
   </div>
-
-  <app-upload-zone
-    [preavisDefault]="preavis()"
-    (contractsUpdated)="loadContracts()"
-  ></app-upload-zone>
-
-  <app-preavis-config
-    (preavisChanged)="preavis.set($event)"
-  ></app-preavis-config>
-
-  <app-contract-list [contracts]="contracts()"></app-contract-list>
+  <div class="btn-row">
+    <button class="btn btn-ghost" (click)="setTab('parametres')">Configurer alertes</button>
+    <button
+      *ngIf="urgentsCount > 0"
+      class="btn btn-danger"
+      (click)="setTab('alertes')"
+    >🔴 {{ urgentsCount }} urgent(s) — Voir les alertes</button>
+  </div>
 </div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab" [class.active]="activeTab() === 'tableau'"    (click)="setTab('tableau')">Tableau</div>
+  <div class="tab" [class.active]="activeTab() === 'timeline'"   (click)="setTab('timeline')">Timeline</div>
+  <div class="tab" [class.active]="activeTab() === 'alertes'"    (click)="setTab('alertes')">
+    Alertes
+    <span *ngIf="urgentsCount > 0" class="tab-badge badge-danger">{{ urgentsCount }}</span>
+    <span *ngIf="urgentsCount === 0 && bientotCount > 0" class="tab-badge badge-warn">{{ bientotCount }}</span>
+  </div>
+  <div class="tab" [class.active]="activeTab() === 'parametres'" (click)="setTab('parametres')">Paramètres</div>
+</div>
+
+<!-- TAB: TABLEAU -->
+<ng-container *ngIf="activeTab() === 'tableau'">
+  <app-preavis-config />
+  <app-upload-zone (contractsUpdated)="loadContracts()" />
+  <app-contract-list [contracts]="contracts()" />
+</ng-container>
+
+<!-- TAB: TIMELINE -->
+<ng-container *ngIf="activeTab() === 'timeline'">
+  <app-timeline [contracts]="contracts()" />
+</ng-container>
+
+<!-- TAB: ALERTES -->
+<ng-container *ngIf="activeTab() === 'alertes'">
+  <app-alerts-panel />
+</ng-container>
+
+<!-- TAB: PARAMÈTRES -->
+<ng-container *ngIf="activeTab() === 'parametres'">
+  <app-alert-settings />
+</ng-container>
