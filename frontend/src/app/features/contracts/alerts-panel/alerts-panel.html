@@ -1,0 +1,59 @@
+<!-- frontend/src/app/features/contracts/alerts-panel/alerts-panel.html -->
+<div *ngIf="loading()" class="alerts-loading">Chargement des alertes…</div>
+
+<div *ngIf="!loading()" class="two-col">
+  <div class="alerts-col">
+
+    <div *ngIf="summary().depasse.length > 0" class="alert-card alert-danger">
+      <div class="alert-icon ai-danger">🚨</div>
+      <div class="alert-body">
+        <h4>{{ summary().depasse.length }} contrat(s) reconduit(s) tacitement</h4>
+        <p>Le délai de dénonciation est dépassé. Ces contrats ont été reconduits automatiquement.</p>
+        <div class="alert-meta">{{ formatContracts(summary().depasse) }}</div>
+        <div class="alert-actions">
+          <button class="alert-btn ab-danger">Générer les lettres quand même</button>
+          <button class="alert-btn ab-ghost">Marquer comme traité</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="summary().bientot.length > 0" class="alert-card alert-warn">
+      <div class="alert-icon ai-warn">⏰</div>
+      <div class="alert-body">
+        <h4>{{ summary().bientot.length }} contrat(s) à dénoncer dans les 6 mois</h4>
+        <p>Préparez les lettres maintenant pour éviter la reconduction tacite.</p>
+        <div class="alert-meta">{{ formatContracts(summary().bientot) }}</div>
+        <div class="alert-actions">
+          <button class="alert-btn ab-primary">Préparer les lettres</button>
+          <button class="alert-btn ab-ghost">Ignorer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-card">
+      <div class="alert-icon ai-info">📧</div>
+      <div class="alert-body">
+        <h4>Rappel automatique configuré</h4>
+        <p>Les alertes email seront envoyées selon la configuration dans l'onglet Paramètres.</p>
+        <div class="alert-meta">Voir panneau de configuration →</div>
+        <div class="alert-actions">
+          <button class="alert-btn ab-ghost">Modifier</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="summary().depasse.length === 0 && summary().bientot.length === 0" class="alert-card">
+      <div class="alert-icon ai-info">✅</div>
+      <div class="alert-body">
+        <h4>Aucune alerte active</h4>
+        <p>Tous vos contrats sont dans les délais.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div>
+    <div class="section-label">Configuration alertes</div>
+    <p class="config-hint">Configurez vos alertes dans l'onglet <strong>Paramètres</strong>.</p>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<!-- frontend/src/app/features/contracts/alert-settings/alert-settings.html -->
+<div class="settings-panel">
+  <div class="notif-card">
+    <h4>Notifications automatiques</h4>
+
+    <div class="notif-row">
+      <span class="notif-label">Alerte 6 mois avant</span>
+      <button class="toggle" [class.off]="!settings().alert6Mois" (click)="toggle('alert6Mois')" type="button"></button>
+    </div>
+
+    <div class="notif-row">
+      <span class="notif-label">Alerte 3 mois avant</span>
+      <button class="toggle" [class.off]="!settings().alert3Mois" (click)="toggle('alert3Mois')" type="button"></button>
+    </div>
+
+    <div class="notif-row">
+      <span class="notif-label">Alerte 1 mois avant</span>
+      <button class="toggle" [class.off]="!settings().alert1Mois" (click)="toggle('alert1Mois')" type="button"></button>
+    </div>
+
+    <div class="notif-row">
+      <span class="notif-label">Alerte délai dépassé</span>
+      <button class="toggle" [class.off]="!settings().alertDepasse" (click)="toggle('alertDepasse')" type="button"></button>
+    </div>
+
+    <div class="notif-row" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <span class="notif-label">Destinataire email</span>
+      <input
+        type="email"
+        class="email-input"
+        [value]="settings().email"
+        (input)="settings.set({...settings(), email: $any($event).target.value})"
+        placeholder="gestionnaire@monga.io"
+      />
+    </div>
+
+    <div class="notif-row">
+      <span class="notif-label">Copie client</span>
+      <button class="toggle" [class.off]="!settings().copieCLient" (click)="toggle('copieCLient')" type="button"></button>
+    </div>
+
+    <div class="notif-row">
+      <span class="notif-label">Résumé hebdomadaire</span>
+      <button class="toggle" [class.off]="!settings().resumeHebdo" (click)="toggle('resumeHebdo')" type="button"></button>
+    </div>
+
+    <div style="margin-top:16px;">
+      <button class="btn btn-primary" (click)="save()" type="button">
+        {{ saved() ? '✓ Enregistré' : 'Enregistrer' }}
+      </button>
+    </div>
+  </div>
+</div>
