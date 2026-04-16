@@ -1,4 +1,30 @@
+# Claude Code
 .claude/settings.local.json
 .playwright-mcp/
-node_modules/
+
+# .NET
+backend/**/bin/
+backend/**/obj/
+*.user
+*.suo
+.vs/
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
+
+# Angular
+frontend/node_modules/
+frontend/.angular/
+frontend/dist/
+
+# macOS
+.DS_Store
 *.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Node
+node_modules/
